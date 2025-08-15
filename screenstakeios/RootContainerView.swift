@@ -11,20 +11,31 @@ struct RootContainerView: View {
         TabView {
             // Home Tab
             NavigationStack {
-                VStack(spacing: 20) {
-                    Image(systemName: "camera.viewfinder")
-                        .font(.system(size: 60))
-                        .foregroundStyle(.tint)
-                    
-                    Text("Screenstake")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    Text("Ready to capture screenshots")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                ZStack {
+                    // Futuristic gradient background
+                    LinearGradient(
+                        colors: [.black, .purple.opacity(0.8)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .ignoresSafeArea()
+
+                    VStack(spacing: 24) {
+                        Image(systemName: "camera.viewfinder")
+                            .font(.system(size: 72, weight: .thin))
+                            .foregroundStyle(.white)
+
+                        Text("Screenstake")
+                            .font(.system(.largeTitle, design: .rounded))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+
+                        Text("Capture the future")
+                            .font(.footnote)
+                            .foregroundStyle(.gray)
+                    }
                 }
-                .navigationTitle("Home")
+                .toolbar(.hidden, for: .navigationBar)
             }
             .tabItem {
                 Label("Home", systemImage: "house.fill")

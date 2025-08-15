@@ -9,13 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            LinearGradient(
+                colors: [.black, .purple.opacity(0.8)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 24) {
+                Image(systemName: "camera.viewfinder")
+                    .font(.system(size: 72, weight: .thin))
+                    .foregroundStyle(.white)
+
+                Text("Screenstake")
+                    .font(.system(.largeTitle, design: .rounded))
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
+
+                Text("Capture the future")
+                    .font(.footnote)
+                    .foregroundStyle(.gray)
+            }
         }
-        .padding()
     }
 }
 
