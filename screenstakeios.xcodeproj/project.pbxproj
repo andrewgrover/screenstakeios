@@ -3,219 +3,142 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C1524D9F2E4EB9DB0007BBB3 /* screenstakeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1524D9E2E4EB9DB0007BBB3 /* screenstakeiosApp.swift */; };
-		C1524DA12E4EB9DB0007BBB3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1524DA02E4EB9DB0007BBB3 /* ContentView.swift */; };
-		C1524DA32E4EB9DC0007BBB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1524DA22E4EB9DC0007BBB3 /* Assets.xcassets */; };
-		C1524DA62E4EB9DC0007BBB3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1524DA52E4EB9DC0007BBB3 /* Preview Assets.xcassets */; };
+		0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */; };
+		49397EB40F6665BF8F5E3BF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34740B283AD358B4F3C85C1C /* ContentView.swift */; };
+		4C030209E32F3E2D961357C2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */; };
+		54A3344023CBF042F5393D2C /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2795F0D306D389385968F10 /* RootContainerView.swift */; };
+		D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03E846A26F32C46F7C7C0F95 /* Assets.xcassets */; };
+		ED42C2F14DF09843607F0547 /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 48142CB0B86A86DF1C321E51 /* Preview Content */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C1524D9B2E4EB9DB0007BBB3 /* screenstakeios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = screenstakeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1524D9E2E4EB9DB0007BBB3 /* screenstakeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenstakeiosApp.swift; sourceTree = "<group>"; };
-		C1524DA02E4EB9DB0007BBB3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		C1524DA22E4EB9DC0007BBB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C1524DA52E4EB9DC0007BBB3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		03E846A26F32C46F7C7C0F95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34740B283AD358B4F3C85C1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		48142CB0B86A86DF1C321E51 /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Preview Content"; path = "screenstakeios/Preview Content"; sourceTree = SOURCE_ROOT; };
+		8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenstakeiosApp.swift; sourceTree = "<group>"; };
+		DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E5297EF2E757C89DE27629BA /* screenstakeios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = screenstakeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2795F0D306D389385968F10 /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		C1524D982E4EB9DB0007BBB3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		C1524D922E4EB9DB0007BBB3 = {
+		898237889345CEE773B7A4BC = {
 			isa = PBXGroup;
 			children = (
-				C1524D9D2E4EB9DB0007BBB3 /* screenstakeios */,
-				C1524D9C2E4EB9DB0007BBB3 /* Products */,
+				A8D031C92549E53D79DEB176 /* screenstakeios */,
+				DCF7296C503554084661D8E9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		C1524D9C2E4EB9DB0007BBB3 /* Products */ = {
+		A8D031C92549E53D79DEB176 /* screenstakeios */ = {
 			isa = PBXGroup;
 			children = (
-				C1524D9B2E4EB9DB0007BBB3 /* screenstakeios.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C1524D9D2E4EB9DB0007BBB3 /* screenstakeios */ = {
-			isa = PBXGroup;
-			children = (
-				C1524D9E2E4EB9DB0007BBB3 /* screenstakeiosApp.swift */,
-				C1524DA02E4EB9DB0007BBB3 /* ContentView.swift */,
-				C1524DA22E4EB9DC0007BBB3 /* Assets.xcassets */,
-				C1524DA42E4EB9DC0007BBB3 /* Preview Content */,
+				DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */,
+				03E846A26F32C46F7C7C0F95 /* Assets.xcassets */,
+				34740B283AD358B4F3C85C1C /* ContentView.swift */,
+				48142CB0B86A86DF1C321E51 /* Preview Content */,
+				F2795F0D306D389385968F10 /* RootContainerView.swift */,
+				8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */,
 			);
 			path = screenstakeios;
 			sourceTree = "<group>";
 		};
-		C1524DA42E4EB9DC0007BBB3 /* Preview Content */ = {
+		DCF7296C503554084661D8E9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1524DA52E4EB9DC0007BBB3 /* Preview Assets.xcassets */,
+				E5297EF2E757C89DE27629BA /* screenstakeios.app */,
 			);
-			path = "Preview Content";
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C1524D9A2E4EB9DB0007BBB3 /* screenstakeios */ = {
+		245617D46249568F8144975A /* screenstakeios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1524DA92E4EB9DC0007BBB3 /* Build configuration list for PBXNativeTarget "screenstakeios" */;
+			buildConfigurationList = F084FC53B73E04D4014222A4 /* Build configuration list for PBXNativeTarget "screenstakeios" */;
 			buildPhases = (
-				C1524D972E4EB9DB0007BBB3 /* Sources */,
-				C1524D982E4EB9DB0007BBB3 /* Frameworks */,
-				C1524D992E4EB9DB0007BBB3 /* Resources */,
+				5360C11F5926500E7632ABDA /* Sources */,
+				945373C64FF65C0EE15C468B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = screenstakeios;
+			packageProductDependencies = (
+			);
 			productName = screenstakeios;
-			productReference = C1524D9B2E4EB9DB0007BBB3 /* screenstakeios.app */;
+			productReference = E5297EF2E757C89DE27629BA /* screenstakeios.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C1524D932E4EB9DB0007BBB3 /* Project object */ = {
+		5ABF0ED1E7341AD19E121F5D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
-				TargetAttributes = {
-					C1524D9A2E4EB9DB0007BBB3 = {
-						CreatedOnToolsVersion = 15.3;
-					};
-				};
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 			};
-			buildConfigurationList = C1524D962E4EB9DB0007BBB3 /* Build configuration list for PBXProject "screenstakeios" */;
+			buildConfigurationList = A97E81E386329B6FC6B09C9E /* Build configuration list for PBXProject "screenstakeios" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
-			mainGroup = C1524D922E4EB9DB0007BBB3;
-			productRefGroup = C1524D9C2E4EB9DB0007BBB3 /* Products */;
+			mainGroup = 898237889345CEE773B7A4BC;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1524D9A2E4EB9DB0007BBB3 /* screenstakeios */,
+				245617D46249568F8144975A /* screenstakeios */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C1524D992E4EB9DB0007BBB3 /* Resources */ = {
+		945373C64FF65C0EE15C468B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1524DA62E4EB9DC0007BBB3 /* Preview Assets.xcassets in Resources */,
-				C1524DA32E4EB9DC0007BBB3 /* Assets.xcassets in Resources */,
+				D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */,
+				ED42C2F14DF09843607F0547 /* Preview Content in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C1524D972E4EB9DB0007BBB3 /* Sources */ = {
+		5360C11F5926500E7632ABDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1524DA12E4EB9DB0007BBB3 /* ContentView.swift in Sources */,
-				C1524D9F2E4EB9DB0007BBB3 /* screenstakeiosApp.swift in Sources */,
+				4C030209E32F3E2D961357C2 /* AppCoordinator.swift in Sources */,
+				49397EB40F6665BF8F5E3BF3 /* ContentView.swift in Sources */,
+				54A3344023CBF042F5393D2C /* RootContainerView.swift in Sources */,
+				0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		C1524DA72E4EB9DC0007BBB3 /* Debug */ = {
+		666BF34FD0810CB49DBE5F46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		C1524DA82E4EB9DC0007BBB3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -245,8 +168,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -255,21 +177,22 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				VALIDATE_PRODUCT = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		C1524DAA2E4EB9DC0007BBB3 /* Debug */ = {
+		97A945C031659CAE4914ABD8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"screenstakeios/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
@@ -279,69 +202,134 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.screenstakeios.screenstakeios;
+				PRODUCT_NAME = screenstakeios;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C27B5373C946A7E4AE046E35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EB1FB3DBBEA659C5C94E5F7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"screenstakeios/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.screenstakeios.screenstakeios;
+				PRODUCT_NAME = screenstakeios;
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		C1524DAB2E4EB9DC0007BBB3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"screenstakeios/Preview Content\"";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.screenstakeios.screenstakeios;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C1524D962E4EB9DB0007BBB3 /* Build configuration list for PBXProject "screenstakeios" */ = {
+		A97E81E386329B6FC6B09C9E /* Build configuration list for PBXProject "screenstakeios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C1524DA72E4EB9DC0007BBB3 /* Debug */,
-				C1524DA82E4EB9DC0007BBB3 /* Release */,
+				C27B5373C946A7E4AE046E35 /* Debug */,
+				666BF34FD0810CB49DBE5F46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		C1524DA92E4EB9DC0007BBB3 /* Build configuration list for PBXNativeTarget "screenstakeios" */ = {
+		F084FC53B73E04D4014222A4 /* Build configuration list for PBXNativeTarget "screenstakeios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C1524DAA2E4EB9DC0007BBB3 /* Debug */,
-				C1524DAB2E4EB9DC0007BBB3 /* Release */,
+				EB1FB3DBBEA659C5C94E5F7C /* Debug */,
+				97A945C031659CAE4914ABD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = C1524D932E4EB9DB0007BBB3 /* Project object */;
+	rootObject = 5ABF0ED1E7341AD19E121F5D /* Project object */;
 }
