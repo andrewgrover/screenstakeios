@@ -14,6 +14,30 @@ targets:
         excludes:
           - "**/.DS_Store"
           - "Preview Content"
+        createIntermediateGroups: true
+        type: group
+        children:
+          - screenstakeiosApp.swift
+          - AppCoordinator.swift
+          - path: Models
+            createIntermediateGroups: true
+            children:
+              - DataModels.swift
+              - PersistenceManager.swift
+              - AuthModels.swift
+              - AuthManager.swift
+          - path: Views
+            createIntermediateGroups: true
+            children:
+              - ContentView.swift
+              - RootContainerView.swift
+              - LandingView.swift
+              - AppSelectionView.swift
+              - StakeSetupView.swift
+              - PaymentSetupView.swift
+              - AuthView.swift
+              - EmailVerificationView.swift
+              - PaymentMethodSetupView.swift
     resources:
       - screenstakeios/Assets.xcassets
       - screenstakeios/Preview Content

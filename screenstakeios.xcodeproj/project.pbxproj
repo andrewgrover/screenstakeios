@@ -8,19 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */; };
+		2C5CA747A761B65A83D3004A /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B751CD91EEC0368C863B9846 /* DataModels.swift */; };
 		3F1B9B283B3DF62C869B8B17 /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7403AA96367EF97A3A41A /* RootContainerView.swift */; };
+		4822A183B04995CC93D3DE33 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87220939A5066DDB1AAAC0EC /* AppSelectionView.swift */; };
 		4C030209E32F3E2D961357C2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */; };
+		6F9F0A21ACD70BD44D285AE9 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */; };
 		74636B824C8CE484710FC8A2 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */; };
+		77A9B4B3ABA18711CB5BACF9 /* StakeSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */; };
+		AAE6CC6CCA2BE2A243DD215B /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784520BE5D8D314034B6633 /* EmailVerificationView.swift */; };
+		BBBD24EAF66EC6924230AC95 /* PaymentMethodSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */; };
+		C2BD59AE5788C451F5B03E19 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E919E15C134453F1DA56933 /* AuthView.swift */; };
 		D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03E846A26F32C46F7C7C0F95 /* Assets.xcassets */; };
 		DB87383B1D8BE47B5B598A3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056118BA9AEB85407C17D4DD /* ContentView.swift */; };
+		E89F2B3949E2A58648124FD5 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822399BD23EEF82896CF790 /* PersistenceManager.swift */; };
+		FC787E18B2AE9E0DE03B1574 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E007D5052A41FA1B504A2C /* AuthManager.swift */; };
+		FE375E8F9B43D67D8D541BBF /* PaymentSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CC84F9A1B558454838763 /* PaymentSetupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		03E846A26F32C46F7C7C0F95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		056118BA9AEB85407C17D4DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		276CC84F9A1B558454838763 /* PaymentSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSetupView.swift; sourceTree = "<group>"; };
+		2822399BD23EEF82896CF790 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		4784520BE5D8D314034B6633 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
+		47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
+		5E919E15C134453F1DA56933 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenstakeiosApp.swift; sourceTree = "<group>"; };
+		87220939A5066DDB1AAAC0EC /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
+		B2E007D5052A41FA1B504A2C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		B751CD91EEC0368C863B9846 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		C1B7403AA96367EF97A3A41A /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
+		CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSetupView.swift; sourceTree = "<group>"; };
 		DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeSetupView.swift; sourceTree = "<group>"; };
 		E5297EF2E757C89DE27629BA /* screenstakeios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = screenstakeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -29,11 +49,28 @@
 		0B74B5480DD9965E7A905786 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				87220939A5066DDB1AAAC0EC /* AppSelectionView.swift */,
+				5E919E15C134453F1DA56933 /* AuthView.swift */,
 				056118BA9AEB85407C17D4DD /* ContentView.swift */,
+				4784520BE5D8D314034B6633 /* EmailVerificationView.swift */,
 				FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */,
+				CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */,
+				276CC84F9A1B558454838763 /* PaymentSetupView.swift */,
 				C1B7403AA96367EF97A3A41A /* RootContainerView.swift */,
+				DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		485FCED4127A2FF62110CCC7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B2E007D5052A41FA1B504A2C /* AuthManager.swift */,
+				47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */,
+				B751CD91EEC0368C863B9846 /* DataModels.swift */,
+				2822399BD23EEF82896CF790 /* PersistenceManager.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		898237889345CEE773B7A4BC = {
@@ -50,6 +87,7 @@
 				DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */,
 				03E846A26F32C46F7C7C0F95 /* Assets.xcassets */,
 				8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */,
+				485FCED4127A2FF62110CCC7 /* Models */,
 				0B74B5480DD9965E7A905786 /* Views */,
 			);
 			path = screenstakeios;
@@ -129,9 +167,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C030209E32F3E2D961357C2 /* AppCoordinator.swift in Sources */,
+				4822A183B04995CC93D3DE33 /* AppSelectionView.swift in Sources */,
+				FC787E18B2AE9E0DE03B1574 /* AuthManager.swift in Sources */,
+				6F9F0A21ACD70BD44D285AE9 /* AuthModels.swift in Sources */,
+				C2BD59AE5788C451F5B03E19 /* AuthView.swift in Sources */,
 				DB87383B1D8BE47B5B598A3C /* ContentView.swift in Sources */,
+				2C5CA747A761B65A83D3004A /* DataModels.swift in Sources */,
+				AAE6CC6CCA2BE2A243DD215B /* EmailVerificationView.swift in Sources */,
 				74636B824C8CE484710FC8A2 /* LandingView.swift in Sources */,
+				BBBD24EAF66EC6924230AC95 /* PaymentMethodSetupView.swift in Sources */,
+				FE375E8F9B43D67D8D541BBF /* PaymentSetupView.swift in Sources */,
+				E89F2B3949E2A58648124FD5 /* PersistenceManager.swift in Sources */,
 				3F1B9B283B3DF62C869B8B17 /* RootContainerView.swift in Sources */,
+				77A9B4B3ABA18711CB5BACF9 /* StakeSetupView.swift in Sources */,
 				0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
