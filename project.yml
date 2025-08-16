@@ -14,12 +14,15 @@ targets:
         excludes:
           - "**/.DS_Store"
           - "Preview Content"
+          - "Assets.xcassets"  # Exclude from sources since it's handled in resources
       - path: screenstakeios/Preview Content
         type: folder
         buildPhase: resources
     resources:
-      - screenstakeios/Assets.xcassets
-      - screenstakeios/Preview Content
+      - path: screenstakeios/Assets.xcassets
+        type: folder
+      - path: screenstakeios/Preview Content
+        type: folder
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.screenstakeios.screenstakeios
