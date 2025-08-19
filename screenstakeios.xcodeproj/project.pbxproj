@@ -7,17 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B210C769CB351AF22A7E56F /* FirebaseEmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2095AAD45AC2B6F19466D0 /* FirebaseEmailVerificationView.swift */; };
 		0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */; };
 		2C5CA747A761B65A83D3004A /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B751CD91EEC0368C863B9846 /* DataModels.swift */; };
 		3F1B9B283B3DF62C869B8B17 /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7403AA96367EF97A3A41A /* RootContainerView.swift */; };
+		44EA07E15AE6BCB22C3DF0B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D9791C3D479DB5CF7F84A42 /* GoogleService-Info.plist */; };
 		4822A183B04995CC93D3DE33 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87220939A5066DDB1AAAC0EC /* AppSelectionView.swift */; };
+		490CBA2AD7744A4161601855 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 541C7D3D97BCAA247424BBA4 /* FirebaseAuth */; };
 		4C030209E32F3E2D961357C2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */; };
+		6B889012C02A5A266161C9CC /* SMSVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520CAEB0CD204DEF0F2BE506 /* SMSVerificationView.swift */; };
 		6F9F0A21ACD70BD44D285AE9 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */; };
 		74636B824C8CE484710FC8A2 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */; };
 		77A9B4B3ABA18711CB5BACF9 /* StakeSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */; };
 		AAE6CC6CCA2BE2A243DD215B /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784520BE5D8D314034B6633 /* EmailVerificationView.swift */; };
 		BBBD24EAF66EC6924230AC95 /* PaymentMethodSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */; };
 		C2BD59AE5788C451F5B03E19 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E919E15C134453F1DA56933 /* AuthView.swift */; };
+		CB9E84E7F116397D3C956294 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB01C42DC5D12509769EFCB5 /* FirebaseAuthManager.swift */; };
 		D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03E846A26F32C46F7C7C0F95 /* Assets.xcassets */; };
 		DB87383B1D8BE47B5B598A3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056118BA9AEB85407C17D4DD /* ContentView.swift */; };
 		E89F2B3949E2A58648124FD5 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822399BD23EEF82896CF790 /* PersistenceManager.swift */; };
@@ -32,18 +37,33 @@
 		2822399BD23EEF82896CF790 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		4784520BE5D8D314034B6633 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
+		520CAEB0CD204DEF0F2BE506 /* SMSVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSVerificationView.swift; sourceTree = "<group>"; };
 		5E919E15C134453F1DA56933 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = screenstakeiosApp.swift; sourceTree = "<group>"; };
 		87220939A5066DDB1AAAC0EC /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
+		8D9791C3D479DB5CF7F84A42 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AB2095AAD45AC2B6F19466D0 /* FirebaseEmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmailVerificationView.swift; sourceTree = "<group>"; };
 		B2E007D5052A41FA1B504A2C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		B751CD91EEC0368C863B9846 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		C1B7403AA96367EF97A3A41A /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
 		CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSetupView.swift; sourceTree = "<group>"; };
 		DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		DB01C42DC5D12509769EFCB5 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeSetupView.swift; sourceTree = "<group>"; };
 		E5297EF2E757C89DE27629BA /* screenstakeios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = screenstakeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7F527388FA1352AC2D6E149E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				490CBA2AD7744A4161601855 /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0B74B5480DD9965E7A905786 /* Views */ = {
@@ -53,10 +73,12 @@
 				5E919E15C134453F1DA56933 /* AuthView.swift */,
 				056118BA9AEB85407C17D4DD /* ContentView.swift */,
 				4784520BE5D8D314034B6633 /* EmailVerificationView.swift */,
+				AB2095AAD45AC2B6F19466D0 /* FirebaseEmailVerificationView.swift */,
 				FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */,
 				CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */,
 				276CC84F9A1B558454838763 /* PaymentSetupView.swift */,
 				C1B7403AA96367EF97A3A41A /* RootContainerView.swift */,
+				520CAEB0CD204DEF0F2BE506 /* SMSVerificationView.swift */,
 				DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */,
 			);
 			path = Views;
@@ -68,6 +90,7 @@
 				B2E007D5052A41FA1B504A2C /* AuthManager.swift */,
 				47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */,
 				B751CD91EEC0368C863B9846 /* DataModels.swift */,
+				DB01C42DC5D12509769EFCB5 /* FirebaseAuthManager.swift */,
 				2822399BD23EEF82896CF790 /* PersistenceManager.swift */,
 			);
 			path = Models;
@@ -86,6 +109,7 @@
 			children = (
 				DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */,
 				03E846A26F32C46F7C7C0F95 /* Assets.xcassets */,
+				8D9791C3D479DB5CF7F84A42 /* GoogleService-Info.plist */,
 				8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */,
 				485FCED4127A2FF62110CCC7 /* Models */,
 				0B74B5480DD9965E7A905786 /* Views */,
@@ -110,6 +134,7 @@
 			buildPhases = (
 				5360C11F5926500E7632ABDA /* Sources */,
 				945373C64FF65C0EE15C468B /* Resources */,
+				7F527388FA1352AC2D6E149E /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -117,6 +142,7 @@
 			);
 			name = screenstakeios;
 			packageProductDependencies = (
+				541C7D3D97BCAA247424BBA4 /* FirebaseAuth */,
 			);
 			productName = screenstakeios;
 			productReference = E5297EF2E757C89DE27629BA /* screenstakeios.app */;
@@ -141,6 +167,9 @@
 			);
 			mainGroup = 898237889345CEE773B7A4BC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				148E0ABEE53748352B2C5B73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
@@ -156,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */,
+				44EA07E15AE6BCB22C3DF0B5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,11 +204,14 @@
 				DB87383B1D8BE47B5B598A3C /* ContentView.swift in Sources */,
 				2C5CA747A761B65A83D3004A /* DataModels.swift in Sources */,
 				AAE6CC6CCA2BE2A243DD215B /* EmailVerificationView.swift in Sources */,
+				CB9E84E7F116397D3C956294 /* FirebaseAuthManager.swift in Sources */,
+				0B210C769CB351AF22A7E56F /* FirebaseEmailVerificationView.swift in Sources */,
 				74636B824C8CE484710FC8A2 /* LandingView.swift in Sources */,
 				BBBD24EAF66EC6924230AC95 /* PaymentMethodSetupView.swift in Sources */,
 				FE375E8F9B43D67D8D541BBF /* PaymentSetupView.swift in Sources */,
 				E89F2B3949E2A58648124FD5 /* PersistenceManager.swift in Sources */,
 				3F1B9B283B3DF62C869B8B17 /* RootContainerView.swift in Sources */,
+				6B889012C02A5A266161C9CC /* SMSVerificationView.swift in Sources */,
 				77A9B4B3ABA18711CB5BACF9 /* StakeSetupView.swift in Sources */,
 				0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */,
 			);
@@ -386,6 +419,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		148E0ABEE53748352B2C5B73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 10.27.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		541C7D3D97BCAA247424BBA4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 148E0ABEE53748352B2C5B73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5ABF0ED1E7341AD19E121F5D /* Project object */;
 }

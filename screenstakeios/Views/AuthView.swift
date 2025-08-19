@@ -2,13 +2,52 @@
 //  AuthView.swift
 //  screenstakeios
 //
-//  Registration and login interface
+//  Updated with SMS verification support
 //
 
 import SwiftUI
 
+// MARK: - Custom Text Field
+struct AuthTextField: View {
+    let title: String
+    let placeholder: String
+    @Binding var text: String
+    var keyboardType: UIKeyboardType = .default
+    var isSecure: Bool = false
+    
+    private let lightGray = Color(hex: "f6f6f6")
+    private let coral = Color(hex: "f38453")
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.system(.subheadline, design: .rounded, weight: .medium))
+                .foregroundColor(lightGray)
+            
+            Group {
+                if isSecure {
+                    SecureField(placeholder, text: $text)
+                } else {
+                    TextField(placeholder, text: $text)
+                        .keyboardType(keyboardType)
+                        .textContentType(keyboardType == .emailAddress ? .emailAddress : keyboardType == .numberPad ? .telephoneNumber : .none)
+                }
+            }
+            .font(.system(.body, design: .rounded))
+            .foregroundColor(lightGray)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white.opacity(0.08))
+                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+            )
+        }
+    }
+}
+
 struct AuthView: View {
-    @EnvironmentObject var authManager: AuthManager
+    @EnvironmentObject var authManager: FirebaseAuthManager
     @State private var isLogin = true
     @State private var registrationData = RegistrationData()
     @State private var loginData = LoginData()
@@ -93,17 +132,66 @@ struct AuthView: View {
                     )
                     .padding(.horizontal, 24)
                     
+                    // Registration Method Toggle (only for signup)
+                    if !isLogin {
+                        VStack(spacing: 12) {
+                            Text("Sign up with")
+                                .font(.system(.subheadline, design: .rounded))
+                                .foregroundColor(lightGray.opacity(0.8))
+                            
+                            HStack(spacing: 12) {
+                                ForEach(RegistrationMethod.allCases, id: \.self) { method in
+                                    Button(action: {
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                            registrationData.method = method
+                                            loginData.method = method
+                                        }
+                                    }) {
+                                        HStack(spacing: 8) {
+                                            Image(systemName: method.icon)
+                                                .font(.system(size: 16, weight: .medium))
+                                            
+                                            Text(method.displayName)
+                                                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                                        }
+                                        .foregroundColor(registrationData.method == method ? .white : lightGray.opacity(0.7))
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 10)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .fill(registrationData.method == method ? coral : Color.clear)
+                                                .stroke(coral.opacity(0.5), lineWidth: 1)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                    }
+                    
                     // Form Fields
                     VStack(spacing: 20) {
                         if isLogin {
                             // Login Form
                             VStack(spacing: 16) {
-                                AuthTextField(
-                                    title: "Email",
-                                    placeholder: "your@email.com",
-                                    text: $loginData.email,
-                                    keyboardType: .emailAddress
-                                )
+                                if loginData.method == .email {
+                                    AuthTextField(
+                                        title: "Email",
+                                        placeholder: "your@email.com",
+                                        text: $loginData.email,
+                                        keyboardType: .emailAddress
+                                    )
+                                } else {
+                                    AuthTextField(
+                                        title: "Phone Number",
+                                        placeholder: "+1 (555) 123-4567",
+                                        text: $loginData.phoneNumber,
+                                        keyboardType: .numberPad
+                                    )
+                                    .onChange(of: loginData.phoneNumber) { _, newValue in
+                                        loginData.phoneNumber = formatPhoneNumber(newValue)
+                                    }
+                                }
                                 
                                 AuthTextField(
                                     title: "Password",
@@ -129,19 +217,33 @@ struct AuthView: View {
                                     )
                                 }
                                 
-                                AuthTextField(
-                                    title: "Email",
-                                    placeholder: "your@email.com",
-                                    text: $registrationData.email,
-                                    keyboardType: .emailAddress
-                                )
+                                if registrationData.method == .email {
+                                    AuthTextField(
+                                        title: "Email",
+                                        placeholder: "your@email.com",
+                                        text: $registrationData.email,
+                                        keyboardType: .emailAddress
+                                    )
+                                } else {
+                                    AuthTextField(
+                                        title: "Phone Number",
+                                        placeholder: "+1 (555) 123-4567",
+                                        text: $registrationData.phoneNumber,
+                                        keyboardType: .numberPad
+                                    )
+                                    .onChange(of: registrationData.phoneNumber) { _, newValue in
+                                        registrationData.phoneNumber = formatPhoneNumber(newValue)
+                                    }
+                                }
                                 
-                                AuthTextField(
-                                    title: "Password",
-                                    placeholder: "At least 8 characters",
-                                    text: $registrationData.password,
-                                    isSecure: true
-                                )
+                                if registrationData.method == .email {
+                                    AuthTextField(
+                                        title: "Password",
+                                        placeholder: "At least 6 characters",
+                                        text: $registrationData.password,
+                                        isSecure: true
+                                    )
+                                }
                             }
                         }
                     }
@@ -226,7 +328,13 @@ struct AuthView: View {
         
         do {
             if isLogin {
-                try await authManager.login(with: loginData)
+                if loginData.method == .email {
+                    try await authManager.login(with: loginData)
+                } else {
+                    // Phone login not implemented yet - would need separate flow
+                    errorMessage = "Phone login coming soon! Use email for now."
+                    showError = true
+                }
             } else {
                 try await authManager.register(with: registrationData)
             }
@@ -237,7 +345,7 @@ struct AuthView: View {
             
         } catch {
             errorMessage = isLogin ? 
-                "Invalid email or password. Please try again." :
+                "Invalid credentials. Please try again." :
                 "Failed to create account. Please try again."
             showError = true
             
@@ -247,43 +355,32 @@ struct AuthView: View {
         
         isLoading = false
     }
-}
-
-// MARK: - Custom Text Field
-struct AuthTextField: View {
-    let title: String
-    let placeholder: String
-    @Binding var text: String
-    var keyboardType: UIKeyboardType = .default
-    var isSecure: Bool = false
     
-    private let lightGray = Color(hex: "f6f6f6")
-    private let coral = Color(hex: "f38453")
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.system(.subheadline, design: .rounded, weight: .medium))
-                .foregroundColor(lightGray)
-            
-            Group {
-                if isSecure {
-                    SecureField(placeholder, text: $text)
-                } else {
-                    TextField(placeholder, text: $text)
-                        .keyboardType(keyboardType)
-                        .textContentType(keyboardType == .emailAddress ? .emailAddress : .none)
-                }
-            }
-            .font(.system(.body, design: .rounded))
-            .foregroundColor(lightGray)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white.opacity(0.08))
-                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
-            )
+    // MARK: - Helper Functions
+    private func formatPhoneNumber(_ input: String) -> String {
+        // Remove all non-digit characters first
+        let digits = input.filter { $0.isNumber }
+        
+        // Limit to 10 digits (US phone numbers without country code)
+        let maxLength = 10
+        let truncated = String(digits.prefix(maxLength))
+        
+        if truncated.isEmpty {
+            return ""
+        }
+        
+        // Format as +1 (XXX) XXX-XXXX
+        if truncated.count <= 3 {
+            return "+1 (\(truncated)"
+        } else if truncated.count <= 6 {
+            let area = String(truncated.prefix(3))
+            let exchange = String(truncated.dropFirst(3))
+            return "+1 (\(area)) \(exchange)"
+        } else {
+            let area = String(truncated.prefix(3))
+            let exchange = String(truncated.dropFirst(3).prefix(3))
+            let number = String(truncated.dropFirst(6))
+            return "+1 (\(area)) \(exchange)-\(number)"
         }
     }
 }

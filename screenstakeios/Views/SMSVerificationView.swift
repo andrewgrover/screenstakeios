@@ -1,15 +1,16 @@
 //
-//  EmailVerificationView.swift
+//  SMSVerificationView.swift
 //  screenstakeios
 //
-//  Email verification interface
+//  SMS verification interface
 //
 
 import SwiftUI
 
-struct EmailVerificationView: View {
+struct SMSVerificationView: View {
     let user: UserAccount
-    @EnvironmentObject var authManager: AuthManager
+    let verificationId: String
+    @EnvironmentObject var authManager: FirebaseAuthManager
     
     @State private var verificationCode: String = ""
     @State private var isLoading = false
@@ -32,20 +33,20 @@ struct EmailVerificationView: View {
                 
                 // Header
                 VStack(spacing: 20) {
-                    Image(systemName: "envelope.circle.fill")
+                    Image(systemName: "message.circle.fill")
                         .font(.system(size: 64, weight: .medium))
                         .foregroundColor(coral)
                     
                     VStack(spacing: 12) {
-                        Text("Check Your Email")
+                        Text("Enter Verification Code")
                             .font(.system(.largeTitle, design: .rounded, weight: .bold))
                             .foregroundColor(lightGray)
                         
-                        Text("We sent a verification code to")
+                        Text("We sent a 6-digit code to")
                             .font(.system(.body, design: .rounded))
                             .foregroundColor(lightGray.opacity(0.8))
                         
-                        Text(user.email ?? "Your email")
+                        Text(user.phoneNumber ?? "")
                             .font(.system(.body, design: .rounded, weight: .semibold))
                             .foregroundColor(coral)
                     }
@@ -54,25 +55,29 @@ struct EmailVerificationView: View {
                 
                 // Verification Code Input
                 VStack(spacing: 16) {
-                    TextField("Enter 6-digit code", text: $verificationCode)
-                        .font(.system(.title2, design: .monospaced, weight: .medium))
+                    TextField("000000", text: $verificationCode)
+                        .font(.system(.title, design: .monospaced, weight: .medium))
                         .foregroundColor(lightGray)
                         .multilineTextAlignment(.center)
                         .keyboardType(.numberPad)
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 16)
+                        .padding(.vertical, 20)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.white.opacity(0.08))
                                 .stroke(Color.white.opacity(0.2), lineWidth: 1)
                         )
                         .onChange(of: verificationCode) { _, newValue in
-                            // Limit to 6 digits
+                            // Limit to 6 digits and auto-submit when complete
                             verificationCode = String(newValue.filter { $0.isNumber }.prefix(6))
+                            
+                            if verificationCode.count == 6 {
+                                verifyCode()
+                            }
                         }
                     
                     Button(action: {
-                        verifyEmail()
+                        verifyCode()
                     }) {
                         ZStack {
                             LinearGradient(
@@ -86,7 +91,7 @@ struct EmailVerificationView: View {
                                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                     .scaleEffect(0.8)
                             } else {
-                                Text("Verify Email")
+                                Text("Verify Code")
                                     .font(.system(size: 18, weight: .semibold, design: .rounded))
                                     .foregroundColor(.white)
                             }
@@ -123,11 +128,11 @@ struct EmailVerificationView: View {
                 
                 Spacer()
                 
-                // Logout option
+                // Back option
                 Button(action: {
                     authManager.logout()
                 }) {
-                    Text("Use Different Email")
+                    Text("Use Different Number")
                         .font(.system(.subheadline, design: .rounded))
                         .foregroundColor(lightGray.opacity(0.6))
                 }
@@ -136,14 +141,16 @@ struct EmailVerificationView: View {
         }
         .preferredColorScheme(.dark)
         .alert("Error", isPresented: $showError) {
-            Button("OK") { }
+            Button("OK") {
+                verificationCode = "" // Clear code on error
+            }
         } message: {
             Text(errorMessage)
         }
     }
     
     // MARK: - Actions
-    private func verifyEmail() {
+    private func verifyCode() {
         Task {
             await processVerification()
         }
@@ -154,7 +161,7 @@ struct EmailVerificationView: View {
         isLoading = true
         
         do {
-            try await authManager.verifyEmail(code: verificationCode)
+            try await authManager.verifyPhoneCode(verificationId: verificationId, code: verificationCode)
             
             let successFeedback = UINotificationFeedbackGenerator()
             successFeedback.notificationOccurred(.success)
@@ -162,7 +169,6 @@ struct EmailVerificationView: View {
         } catch {
             errorMessage = "Invalid verification code. Please try again."
             showError = true
-            verificationCode = ""
             
             let errorFeedback = UINotificationFeedbackGenerator()
             errorFeedback.notificationOccurred(.error)
@@ -182,7 +188,7 @@ struct EmailVerificationView: View {
         isResending = true
         
         do {
-            try await authManager.sendVerificationEmail()
+            try await authManager.resendPhoneVerification(phoneNumber: user.phoneNumber ?? "")
             
             let impactFeedback = UIImpactFeedbackGenerator(style: .light)
             impactFeedback.impactOccurred()
@@ -197,12 +203,18 @@ struct EmailVerificationView: View {
 }
 
 #Preview {
-    EmailVerificationView(user: UserAccount(
-        email: "test@example.com",
-        firstName: "John",
-        lastName: "Doe",
-        createdAt: Date(),
-        isEmailVerified: false,
-        hasPaymentMethod: false
-    ))
+    SMSVerificationView(
+        user: UserAccount(
+            email: nil,
+            phoneNumber: "+1 (555) 123-4567",
+            firstName: "John",
+            lastName: "Doe",
+            createdAt: Date(),
+            isEmailVerified: false,
+            isPhoneVerified: false,
+            hasPaymentMethod: false,
+            registrationMethod: .phone
+        ),
+        verificationId: "test-verification-id"
+    )
 }

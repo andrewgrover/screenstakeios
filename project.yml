@@ -5,6 +5,11 @@ options:
     iOS: 17.4
   createIntermediateGroups: true
 
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    exactVersion: 10.27.0
+
 targets:
   screenstakeios:
     type: application
@@ -26,6 +31,7 @@ targets:
               - PersistenceManager.swift
               - AuthModels.swift
               - AuthManager.swift
+              - FirebaseAuthManager.swift
           - path: Views
             createIntermediateGroups: true
             children:
@@ -38,9 +44,15 @@ targets:
               - AuthView.swift
               - EmailVerificationView.swift
               - PaymentMethodSetupView.swift
+              - FirebaseEmailVerificationView.swift
+              - SMSVerificationView.swift
     resources:
       - screenstakeios/Assets.xcassets
       - screenstakeios/Preview Content
+      - screenstakeios/GoogleService-Info.plist
+    dependencies:
+      - package: Firebase
+        product: FirebaseAuth
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.screenstakeios.screenstakeios

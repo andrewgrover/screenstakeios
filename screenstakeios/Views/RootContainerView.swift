@@ -2,12 +2,14 @@
 //  RootContainerView.swift
 //  screenstakeios
 //
+//  Updated for Firebase Authentication
+//
 
 import SwiftUI
 
 struct RootContainerView: View {
     @StateObject private var persistenceManager = PersistenceManager.shared
-    @StateObject private var authManager = AuthManager()
+    @StateObject private var authManager = FirebaseAuthManager()
     
     var body: some View {
         Group {
@@ -27,8 +29,13 @@ struct RootContainerView: View {
                     .environmentObject(authManager)
                 
             case .needsEmailVerification(let user):
-                // Show email verification screen
-                EmailVerificationView(user: user)
+                // Show Firebase email verification screen
+                FirebaseEmailVerificationView(user: user)
+                    .environmentObject(authManager)
+                
+            case .needsPhoneVerification(let user, let verificationId):
+                // Show SMS verification screen
+                SMSVerificationView(user: user, verificationId: verificationId)
                     .environmentObject(authManager)
                 
             case .needsPaymentMethod(let user):

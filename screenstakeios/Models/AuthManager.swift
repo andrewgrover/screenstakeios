@@ -2,7 +2,7 @@
 //  AuthManager.swift
 //  screenstakeios
 //
-//  Handles user authentication and account management
+//  Updated to be compatible with new UserAccount structure
 //
 
 import Foundation
@@ -48,7 +48,7 @@ class AuthManager: ObservableObject {
         // Simulate API call
         try await Task.sleep(for: .seconds(1.5))
         
-        // In real app: Make API call to create account
+        // Create new user with email method (backwards compatibility)
         let newUser = UserAccount(
             email: data.email,
             firstName: data.firstName,
@@ -71,8 +71,7 @@ class AuthManager: ObservableObject {
         // Simulate API call
         try await Task.sleep(for: .seconds(1))
         
-        // In real app: Authenticate with backend
-        // For demo, create a mock user
+        // Create user with email method (backwards compatibility)
         let user = UserAccount(
             email: data.email,
             firstName: "Demo",
@@ -100,11 +99,19 @@ class AuthManager: ObservableObject {
         try await Task.sleep(for: .seconds(1))
         
         guard var user = currentUser else { return }
-        user.isEmailVerified = true
-        currentUser = user
-        saveUser(user)
         
-        authState = user.hasPaymentMethod ? .authenticated(user) : .needsPaymentMethod(user)
+        #if DEBUG
+        // Accept any 6-digit code in debug builds
+        if code.count == 6 && code.allSatisfy({ $0.isNumber }) {
+            user.isEmailVerified = true
+            currentUser = user
+            saveUser(user)
+            authState = user.hasPaymentMethod ? .authenticated(user) : .needsPaymentMethod(user)
+            return
+        }
+        #endif
+        
+        throw NSError(domain: "Invalid verification code", code: 400)
     }
     
     // MARK: - Payment Methods
@@ -177,14 +184,6 @@ class AuthManager: ObservableObject {
             userDefaults.set(data, forKey: "payment_methods")
         }
     }
-}
-
-// MARK: - Card Details Helper
-struct CardDetails {
-    let last4: String
-    let brand: String
-    let expiryMonth: Int
-    let expiryYear: Int
 }
 
 // MARK: - Keychain Helper (Simplified)
