@@ -9,6 +9,9 @@ packages:
   Firebase:
     url: https://github.com/firebase/firebase-ios-sdk
     exactVersion: 10.27.0
+  Stripe:
+    url: https://github.com/stripe/stripe-ios
+    exactVersion: 23.27.0
 
 targets:
   screenstakeios:
@@ -32,6 +35,8 @@ targets:
               - AuthModels.swift
               - AuthManager.swift
               - FirebaseAuthManager.swift
+              - StripePaymentManager.swift
+              - StakeMonitoringService.swift
           - path: Views
             createIntermediateGroups: true
             children:
@@ -41,6 +46,7 @@ targets:
               - AppSelectionView.swift
               - StakeSetupView.swift
               - PaymentSetupView.swift
+              - ApplePaySetupView.swift
               - AuthView.swift
               - EmailVerificationView.swift
               - PaymentMethodSetupView.swift
@@ -53,6 +59,12 @@ targets:
     dependencies:
       - package: Firebase
         product: FirebaseAuth
+      - package: Stripe
+        product: StripePaymentSheet
+      - package: Stripe
+        product: StripeApplePay
+      - sdk: PassKit.framework
+      - sdk: StoreKit.framework
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.screenstakeios.screenstakeios
@@ -71,6 +83,21 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         IPHONEOS_DEPLOYMENT_TARGET: 17.4
+        CODE_SIGN_ENTITLEMENTS: screenstakeios/screenstakeios.entitlements
+        # Apple Pay & Privacy Descriptions
+        INFOPLIST_KEY_NSFaceIDUsageDescription: "Authenticate payments securely with Face ID"
+        INFOPLIST_KEY_NSCameraUsageDescription: "Scan payment cards for easier entry"
+        INFOPLIST_KEY_NSUserTrackingUsageDescription: "Track your screen time to help you meet your goals"
+        # Background Modes
+        INFOPLIST_KEY_UIBackgroundModes: 
+          - fetch
+          - processing
+          - remote-notification
+        # URL Schemes for Stripe
+        INFOPLIST_KEY_CFBundleURLTypes:
+          - CFBundleURLSchemes:
+              - screenstake
+            CFBundleURLName: com.screenstakeios
       debug:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
         DEBUG_INFORMATION_FORMAT: dwarf

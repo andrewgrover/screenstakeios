@@ -420,7 +420,8 @@ struct StakeSetupView: View {
             }
         }
         .fullScreenCover(isPresented: $showingPaymentSetup) {
-            PaymentSetupView(
+            // Use ApplePaySetupView instead of PaymentSetupView
+            ApplePaySetupView(
                 selectedApps: selectedApps,
                 stakeAmount: stakeAmount,
                 dailyTimeLimit: dailyTimeLimit,
