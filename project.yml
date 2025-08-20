@@ -89,15 +89,12 @@ targets:
         INFOPLIST_KEY_NSCameraUsageDescription: "Scan payment cards for easier entry"
         INFOPLIST_KEY_NSUserTrackingUsageDescription: "Track your screen time to help you meet your goals"
         # Background Modes
-        INFOPLIST_KEY_UIBackgroundModes: 
+        INFOPLIST_KEY_UIBackgroundModes:
           - fetch
           - processing
           - remote-notification
         # URL Schemes for Stripe
-        INFOPLIST_KEY_CFBundleURLTypes:
-          - CFBundleURLSchemes:
-              - screenstake
-            CFBundleURLName: com.screenstakeios
+        INFOPLIST_KEY_CFBundleURLTypes: '[{"CFBundleURLSchemes":["screenstake"],"CFBundleURLName":"com.screenstakeios"}]'
       debug:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
         DEBUG_INFORMATION_FORMAT: dwarf
