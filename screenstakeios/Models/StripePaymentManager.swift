@@ -9,6 +9,7 @@ import Foundation
 import PassKit
 import StripePaymentSheet
 import StripeApplePay
+import StripePayments
 import UIKit
 
 @MainActor
@@ -202,8 +203,9 @@ class StripePaymentManager: NSObject, ObservableObject {
     func handle3DSAuthentication(clientSecret: String) async throws {
         // Present 3DS challenge using Stripe SDK
         try await withCheckedThrowingContinuation { continuation in
+            let params = STPPaymentIntentParams(clientSecret: clientSecret)
             STPPaymentHandler.shared().confirmPayment(
-                withParams: STPConfirmPaymentParams(clientSecret: clientSecret),
+                withParams: params,
                 authenticationContext: self
             ) { status, _, error in
                 switch status {
