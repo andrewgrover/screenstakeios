@@ -9,6 +9,7 @@ import Foundation
 import PassKit
 import StripePaymentSheet
 import StripeApplePay
+import UIKit
 
 @MainActor
 class StripePaymentManager: NSObject, ObservableObject {
@@ -97,14 +98,14 @@ class StripePaymentManager: NSObject, ObservableObject {
         applePayConfig.paymentSummaryItems = [setupItem]
         
         // Add recurring payment notice
-        let recurringPayment = PKRecurringPaymentSummaryItem(
-            label: "Screenstake Limit Exceeded Fee",
-            amount: NSDecimalNumber(value: stakeAmount)
-        )
-        recurringPayment.intervalUnit = .day
-        recurringPayment.intervalCount = 1  // Daily limit
-        
         if #available(iOS 16.0, *) {
+            let recurringPayment = PKRecurringPaymentSummaryItem(
+                label: "Screenstake Limit Exceeded Fee",
+                amount: NSDecimalNumber(value: stakeAmount)
+            )
+            recurringPayment.intervalUnit = .day
+            recurringPayment.intervalCount = 1  // Daily limit
+
             applePayConfig.recurringPaymentRequest = PKRecurringPaymentRequest(
                 paymentDescription: "Charged when daily screen time limit is exceeded",
                 regularBilling: recurringPayment,

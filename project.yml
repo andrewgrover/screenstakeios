@@ -69,7 +69,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.screenstakeios.screenstakeios
         PRODUCT_NAME: screenstakeios
-        SWIFT_VERSION: 5.0
+        SWIFT_VERSION: 5.9
         MARKETING_VERSION: 1.0
         CURRENT_PROJECT_VERSION: 1
         GENERATE_INFOPLIST_FILE: YES
