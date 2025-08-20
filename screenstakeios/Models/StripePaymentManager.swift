@@ -113,11 +113,8 @@ class StripePaymentManager: NSObject, ObservableObject {
             )
         }
         
-        guard let authController = PKPaymentAuthorizationController(paymentRequest: applePayConfig) else {
-            completion(.failure(PaymentError.applePaySetupFailed))
-            return
-        }
-        
+        let authController = PKPaymentAuthorizationController(paymentRequest: applePayConfig)
+
         authController.delegate = self
         authController.present { presented in
             if !presented {
