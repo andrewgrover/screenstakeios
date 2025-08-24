@@ -51,7 +51,7 @@ class StripePaymentManager: NSObject, ObservableObject {
     private func getStripePublishableKey() -> String {
         // In production, load from secure config or backend
         #if DEBUG
-        return "pk_test_YOUR_TEST_KEY" // Replace with your test key
+        return "pk_test_51Rxyav3zZzP1OsaVVFpKTuTiBXDOIjWBbkAq3BozAyKQp9XuxsUM24onXA1KWwtMymzKtBs1egkPS0OJlWoK6cWg00LHaLzg19" // Replace with your test key
         #else
         return "pk_live_YOUR_LIVE_KEY" // Replace with your live key
         #endif

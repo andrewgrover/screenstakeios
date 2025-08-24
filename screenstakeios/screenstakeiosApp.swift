@@ -186,7 +186,6 @@ struct screenstakeiosApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var paymentManager = StripePaymentManager.shared
     @StateObject private var monitoringService = StakeMonitoringService.shared
-    
     var body: some Scene {
         WindowGroup {
             RootContainerView()

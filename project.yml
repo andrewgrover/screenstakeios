@@ -1,8 +1,8 @@
 name: screenstakeios
+
 options:
-  bundleIdPrefix: com.screenstakeios
   deploymentTarget:
-    iOS: 17.4
+    iOS: 16.0
   createIntermediateGroups: true
 
 packages:
@@ -17,7 +17,7 @@ targets:
   screenstakeios:
     type: application
     platform: iOS
-    sources: 
+    sources:
       - path: screenstakeios
         excludes:
           - "**/.DS_Store"
@@ -57,48 +57,78 @@ targets:
       - screenstakeios/Preview Content
       - screenstakeios/GoogleService-Info.plist
     dependencies:
+      # --- Firebase ---
+      - package: Firebase
+        product: FirebaseCore         # <— add this if you call FirebaseApp.configure()
       - package: Firebase
         product: FirebaseAuth
+      # --- Stripe ---
       - package: Stripe
         product: StripePaymentSheet
       - package: Stripe
         product: StripeApplePay
+      # --- Apple SDKs ---
       - sdk: PassKit.framework
       - sdk: StoreKit.framework
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.screenstakeios.screenstakeios
+        # Signing
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: KAZMRW253H
+        PRODUCT_BUNDLE_IDENTIFIER: com.andyg.screenstake
+
+        # App meta
         PRODUCT_NAME: screenstakeios
-        SWIFT_VERSION: 5.9
         MARKETING_VERSION: 1.0
         CURRENT_PROJECT_VERSION: 1
+
+        # Swift / build
+        # (Let Xcode 16 default to Swift 5.10, or set explicitly:)
+        SWIFT_VERSION: 5.10
         GENERATE_INFOPLIST_FILE: YES
+        IPHONEOS_DEPLOYMENT_TARGET: 16.0
+
+        # Info.plist keys
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+
+        # Assets / previews
         DEVELOPMENT_ASSET_PATHS: "\"screenstakeios/Preview Content\""
         ENABLE_PREVIEWS: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-        IPHONEOS_DEPLOYMENT_TARGET: 17.4
-        CODE_SIGN_ENTITLEMENTS: screenstakeios/screenstakeios.entitlements
-        # Apple Pay & Privacy Descriptions
+
+        # Permissions text
         INFOPLIST_KEY_NSFaceIDUsageDescription: "Authenticate payments securely with Face ID"
         INFOPLIST_KEY_NSCameraUsageDescription: "Scan payment cards for easier entry"
         INFOPLIST_KEY_NSUserTrackingUsageDescription: "Track your screen time to help you meet your goals"
-        # Background Modes
+
+        # Background modes
         INFOPLIST_KEY_UIBackgroundModes:
           - fetch
           - processing
           - remote-notification
-        # URL Schemes for Stripe
+
+        # URL schemes (Stripe redirect)
         INFOPLIST_KEY_CFBundleURLTypes: '[{"CFBundleURLSchemes":["screenstake"],"CFBundleURLName":"com.screenstakeios"}]'
+
       debug:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
         DEBUG_INFORMATION_FORMAT: dwarf
         SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+
       release:
         DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
         SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+schemes:
+  screenstakeios:
+    shared: true
+    build:
+      targets:
+        screenstakeios: all
+    run:
+      config: Debug

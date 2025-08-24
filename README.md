@@ -30,3 +30,10 @@ struct YourApp: App {
     }
   }
 }
+
+xcodebuild -project screenstakeios.xcodeproj \
+           -scheme screenstakeios \
+           -configuration Debug \
+           -destination 'id=00008101-00161DE211E0001E' \
+           -allowProvisioningUpdates \
+           clean build install
