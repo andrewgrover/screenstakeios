@@ -2,7 +2,7 @@ name: screenstakeios
 
 options:
   deploymentTarget:
-    iOS: 16.0
+    iOS: 17.0
   createIntermediateGroups: true
 
 packages:
@@ -27,6 +27,7 @@ targets:
         children:
           - screenstakeiosApp.swift
           - AppCoordinator.swift
+          - ColorExtensions.swift  # ← ADD THIS LINE
           - path: Models
             createIntermediateGroups: true
             children:
@@ -59,8 +60,6 @@ targets:
     dependencies:
       # --- Firebase ---
       - package: Firebase
-        product: FirebaseCore         # <— add this if you call FirebaseApp.configure()
-      - package: Firebase
         product: FirebaseAuth
       # --- Stripe ---
       - package: Stripe
@@ -83,7 +82,6 @@ targets:
         CURRENT_PROJECT_VERSION: 1
 
         # Swift / build
-        # (Let Xcode 16 default to Swift 5.10, or set explicitly:)
         SWIFT_VERSION: 5.10
         GENERATE_INFOPLIST_FILE: YES
         IPHONEOS_DEPLOYMENT_TARGET: 16.0

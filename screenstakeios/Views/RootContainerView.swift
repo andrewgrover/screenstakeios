@@ -66,7 +66,7 @@ struct RootContainerView: View {
             PaymentMethodSetupView(user: user)
                 .environmentObject(authManager)
             
-        case .authenticated(let user):
+        case .authenticated(_):
             // Show stakes dashboard
             MainDashboardView()
                 .environmentObject(persistenceManager)

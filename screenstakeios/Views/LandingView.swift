@@ -17,11 +17,11 @@ struct LandingView: View {
     @State private var showingAppSelection = false
     
     // Brand colors from README
-    private let blackBg = Color(hex: "000000")
-    private let lightGray = Color(hex: "f6f6f6")
-    private let peach = Color(hex: "f4bda4")
-    private let coral = Color(hex: "f38453")
-    private let orange = Color(hex: "f24b02")
+    private let blackBg = Color.black
+    private let lightGray = Color(red: 0.965, green: 0.965, blue: 0.965) // #f6f6f6
+    private let peach = Color(red: 0.957, green: 0.741, blue: 0.643) // #f4bda4
+    private let coral = Color(red: 0.953, green: 0.518, blue: 0.325) // #f38453
+    private let orange = Color(red: 0.949, green: 0.294, blue: 0.008) // #f24b02
     
     var body: some View {
         NavigationStack {
@@ -52,24 +52,16 @@ struct LandingView: View {
                         // Logo section with fallback
                         VStack(spacing: 20) {
                             ZStack {
-                                // Custom logo
-                                ZStack {
-                                    // Glow backdrop
-                                    Image("ScreenStakeLogo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 320)
-                                        .blur(radius: 30)
-                                        .opacity(0.4)
-                                        .scaleEffect(1.1)
+                                // Fallback logo using SF Symbols
+                                VStack(spacing: 12) {
+                                    Image(systemName: "target")
+                                        .font(.system(size: 80, weight: .ultraLight))
+                                        .foregroundColor(coral)
                                     
-                                    // Main logo
-                                    Image("ScreenStakeLogo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 280)
+                                    Text("Screenstake")
+                                        .font(.system(size: 42, weight: .bold, design: .rounded))
+                                        .foregroundColor(lightGray)
                                 }
-
                             }
                             .scaleEffect(logoScale)
                             .opacity(logoOpacity)
@@ -250,8 +242,8 @@ struct FeatureItem: View {
     let title: String
     let description: String
     
-    private let lightGray = Color(hex: "f6f6f6")
-    private let coral = Color(hex: "f38453")
+    private let lightGray = Color(red: 0.965, green: 0.965, blue: 0.965) // #f6f6f6
+    private let coral = Color(red: 0.953, green: 0.518, blue: 0.325) // #f38453
     
     var body: some View {
         VStack(spacing: 8) {
@@ -277,34 +269,6 @@ struct FeatureItem: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.white.opacity(0.03))
                 .stroke(Color.white.opacity(0.1), lineWidth: 1)
-        )
-    }
-}
-
-// Color extension for hex colors
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
         )
     }
 }

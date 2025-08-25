@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
-import FirebaseCore
 
 @MainActor
 class FirebaseAuthManager: ObservableObject {
@@ -19,11 +18,6 @@ class FirebaseAuthManager: ObservableObject {
     private let userDefaults = UserDefaults.standard
     
     init() {
-        // Configure Firebase
-        if FirebaseApp.app() == nil {
-            FirebaseApp.configure()
-        }
-        
         // Listen for auth state changes
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             Task { @MainActor in
