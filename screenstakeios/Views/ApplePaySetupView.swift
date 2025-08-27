@@ -2,7 +2,7 @@
 //  ApplePaySetupView.swift
 //  screenstakeios
 //
-//  Apple Pay setup for stake payments with consent flow - ALL iOS 17.0 compatibility errors fixed
+//  Apple Pay setup for stake payments - FIXED VERSION
 //
 
 import SwiftUI
@@ -15,7 +15,6 @@ struct ApplePaySetupView: View {
     let stakeDuration: Int
     
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var paymentManager = StripePaymentManager.shared
     @StateObject private var persistenceManager = PersistenceManager.shared
     
     @State private var hasConsented = false
@@ -59,51 +58,24 @@ struct ApplePaySetupView: View {
                         .padding(.horizontal, 24)
                         .padding(.top, 20)
                         
-                        // Apple Pay Benefits
-                        VStack(spacing: 16) {
-                            HStack {
-                                Image(systemName: "checkmark.shield.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.green)
-                                
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("Secure & Private")
-                                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                                        .foregroundColor(lightGray)
-                                    
-                                    Text("Your card details are never shared with us")
-                                        .font(.system(.caption, design: .rounded))
-                                        .foregroundColor(lightGray.opacity(0.7))
-                                }
-                                
-                                Spacer()
-                            }
+                        // Development Notice
+                        VStack(spacing: 12) {
+                            Text("🧪 Development Mode")
+                                .font(.system(.headline, design: .rounded, weight: .semibold))
+                                .foregroundColor(.yellow)
                             
-                            HStack {
-                                Image(systemName: "lock.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.blue)
-                                
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("Bank-Level Encryption")
-                                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                                        .foregroundColor(lightGray)
-                                    
-                                    Text("Powered by Apple Pay & Stripe")
-                                        .font(.system(.caption, design: .rounded))
-                                        .foregroundColor(lightGray.opacity(0.7))
-                                }
-                                
-                                Spacer()
-                            }
+                            Text("This will create a test stake without real payment processing")
+                                .font(.system(.subheadline, design: .rounded))
+                                .foregroundColor(lightGray.opacity(0.8))
+                                .multilineTextAlignment(.center)
                         }
-                        .padding(20)
+                        .padding(16)
                         .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .foregroundColor(Color.white.opacity(0.05))
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundColor(Color.yellow.opacity(0.1))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
                                 )
                         )
                         .padding(.horizontal, 24)
@@ -133,16 +105,6 @@ struct ApplePaySetupView: View {
                                         icon: "exclamationmark.triangle",
                                         text: "You're ONLY charged if you exceed the limit"
                                     )
-                                    
-                                    ChargeExplanationRow(
-                                        icon: "arrow.uturn.backward",
-                                        text: "24-hour cancellation window for disputes"
-                                    )
-                                    
-                                    ChargeExplanationRow(
-                                        icon: "shield",
-                                        text: "Daily charge cap: $\(Int(stakeAmount)) maximum"
-                                    )
                                 }
                             }
                             .padding(20)
@@ -159,31 +121,18 @@ struct ApplePaySetupView: View {
                             VStack(spacing: 16) {
                                 ConsentCheckbox(
                                     isChecked: $hasConsented,
-                                    text: "I authorize Screenstake to charge $\(Int(stakeAmount)) to my payment method if I exceed my daily \(formatTimeLimit(dailyTimeLimit)) screen time limit"
+                                    text: "I authorize a $\(Int(stakeAmount)) charge if I exceed my daily \(formatTimeLimit(dailyTimeLimit)) limit"
                                 )
                                 
                                 ConsentCheckbox(
                                     isChecked: $understandsCharges,
-                                    text: "I understand charges are automatic and occur only when limits are exceeded"
+                                    text: "I understand this is a test stake for development"
                                 )
                                 
                                 ConsentCheckbox(
                                     isChecked: $acceptsTerms,
                                     text: "I accept the Terms of Service and Privacy Policy"
                                 )
-                            }
-                            
-                            // Learn More Button
-                            Button(action: {
-                                showConsentDetails = true
-                            }) {
-                                HStack(spacing: 4) {
-                                    Text("View detailed terms")
-                                        .font(.system(.caption, design: .rounded))
-                                    Image(systemName: "arrow.up.right.square")
-                                        .font(.system(size: 10))
-                                }
-                                .foregroundColor(coral.opacity(0.8))
                             }
                         }
                         .padding(.horizontal, 24)
@@ -198,57 +147,48 @@ struct ApplePaySetupView: View {
                     Spacer()
                     
                     VStack(spacing: 16) {
-                        // Apple Pay Button
-                        if PKPaymentAuthorizationController.canMakePayments() {
-                            Button(action: {
-                                setupApplePay()
-                            }) {
-                                ZStack {
-                                    if allConsentsGiven {
-                                        // Apple Pay branded button
-                                        ApplePayButton()
-                                            .frame(height: 56)
-                                    } else {
-                                        // Disabled state
-                                        RoundedRectangle(cornerRadius: 28)
-                                            .foregroundColor(Color.gray.opacity(0.3))
-                                            .frame(height: 56)
-                                            .overlay(
-                                                HStack(spacing: 8) {
-                                                    Image(systemName: "lock.fill")
-                                                    Text("Complete Consent Above")
-                                                }
-                                                .foregroundColor(.white.opacity(0.5))
-                                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                            )
+                        // Test Stake Button (instead of Apple Pay for now)
+                        Button(action: {
+                            createTestStake()
+                        }) {
+                            ZStack {
+                                LinearGradient(
+                                    colors: allConsentsGiven ? [orange, coral] : [Color.gray.opacity(0.5)],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                                
+                                if isProcessing {
+                                    HStack(spacing: 8) {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                            .scaleEffect(0.8)
+                                        Text("Creating Stake...")
+                                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                                            .foregroundColor(.white)
                                     }
+                                } else {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .font(.system(size: 20))
+                                        Text("Create Test Stake")
+                                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                                    }
+                                    .foregroundColor(.white)
                                 }
                             }
-                            .disabled(!allConsentsGiven || isProcessing)
-                            .padding(.horizontal, 24)
-                        } else {
-                            // Fallback for devices without Apple Pay
-                            Button(action: {
-                                // Show alternative payment method
-                            }) {
-                                ZStack {
-                                    LinearGradient(
-                                        colors: allConsentsGiven ? [orange, coral] : [Color.gray.opacity(0.5)],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                    
-                                    Text("Add Payment Method")
-                                        .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                        .foregroundColor(.white)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 56)
-                                .cornerRadius(28)
-                            }
-                            .disabled(!allConsentsGiven || isProcessing)
-                            .padding(.horizontal, 24)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .cornerRadius(28)
+                            .shadow(
+                                color: allConsentsGiven ? orange.opacity(0.3) : .clear,
+                                radius: 20,
+                                x: 0,
+                                y: 10
+                            )
                         }
+                        .disabled(!allConsentsGiven || isProcessing)
+                        .padding(.horizontal, 24)
                         
                         // Back Button
                         Button(action: {
@@ -283,16 +223,12 @@ struct ApplePaySetupView: View {
         } message: {
             Text(errorMessage)
         }
-        .alert("Stake Created Successfully!", isPresented: $showSuccess) {
+        .alert("Test Stake Created!", isPresented: $showSuccess) {
             Button("Continue") {
-                // Navigate to dashboard
                 dismiss()
             }
         } message: {
-            Text("Your payment method has been saved securely. You'll only be charged if you exceed your daily limit.")
-        }
-        .sheet(isPresented: $showConsentDetails) {
-            ConsentDetailsView()
+            Text("Your test stake is now active! This is a development version - no real payments will be processed.")
         }
     }
     
@@ -302,60 +238,30 @@ struct ApplePaySetupView: View {
     }
     
     // MARK: - Actions
-    private func setupApplePay() {
+    private func createTestStake() {
+        guard allConsentsGiven else { return }
+        
         isProcessing = true
         
-        paymentManager.presentApplePaySetup(for: stakeAmount) { result in
-            switch result {
-            case .success(let paymentMethodId):
-                // Create the stake with the payment method
-                createStake(with: paymentMethodId)
-                
-            case .failure(let error):
-                isProcessing = false
-                errorMessage = error.localizedDescription
-                showError = true
-                
-                let errorFeedback = UINotificationFeedbackGenerator()
-                errorFeedback.notificationOccurred(.error)
-            }
+        // Simulate processing delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            // Create the test stake
+            let timeInSeconds = dailyTimeLimit * 60
+            let _ = persistenceManager.createStake(
+                selectedApps: selectedApps,
+                dailyTimeLimit: timeInSeconds,
+                stakeAmount: stakeAmount,
+                duration: stakeDuration
+            )
+            
+            // Show success
+            isProcessing = false
+            showSuccess = true
+            
+            // Success feedback
+            let successFeedback = UINotificationFeedbackGenerator()
+            successFeedback.notificationOccurred(.success)
         }
-    }
-    
-    private func createStake(with paymentMethodId: String) {
-        // Store consent record
-        let consentRecord = ConsentRecord(
-            userId: "current_user_id", // Get from auth
-            stakeId: UUID().uuidString,
-            consentedAt: Date(),
-            stakeAmount: stakeAmount,
-            dailyLimit: dailyTimeLimit,
-            paymentMethodId: paymentMethodId,
-            consentText: "User consented to $\(Int(stakeAmount)) charge when exceeding \(formatTimeLimit(dailyTimeLimit)) daily limit"
-        )
-        
-        // Save consent (you'd send this to your backend)
-        saveConsentRecord(consentRecord)
-        
-        // Create the stake
-        let timeInSeconds = dailyTimeLimit * 60
-        let _ = persistenceManager.createStake(
-            selectedApps: selectedApps,
-            dailyTimeLimit: timeInSeconds,
-            stakeAmount: stakeAmount,
-            duration: stakeDuration
-        )
-        
-        isProcessing = false
-        showSuccess = true
-        
-        let successFeedback = UINotificationFeedbackGenerator()
-        successFeedback.notificationOccurred(.success)
-    }
-    
-    private func saveConsentRecord(_ record: ConsentRecord) {
-        // Send to backend to store consent record
-        // This is critical for compliance and dispute resolution
     }
     
     // MARK: - Helper Functions
@@ -373,7 +279,7 @@ struct ApplePaySetupView: View {
     }
 }
 
-// MARK: - Supporting Views - FIXED iOS 17.0 compatibility
+// MARK: - Supporting Views (keeping existing ones)
 struct ConsentCheckbox: View {
     @Binding var isChecked: Bool
     let text: String
@@ -429,16 +335,6 @@ struct ChargeExplanationRow: View {
     }
 }
 
-struct ApplePayButton: UIViewRepresentable {
-    func makeUIView(context: Context) -> PKPaymentButton {
-        let button = PKPaymentButton(paymentButtonType: .setUp, paymentButtonStyle: .black)
-        button.cornerRadius = 28
-        return button
-    }
-    
-    func updateUIView(_ uiView: PKPaymentButton, context: Context) {}
-}
-
 struct ProcessingOverlay: View {
     private let blackBg = Color(hex: "000000")
     private let lightGray = Color(hex: "f6f6f6")
@@ -453,7 +349,7 @@ struct ProcessingOverlay: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: lightGray))
                     .scaleEffect(1.5)
                 
-                Text("Setting up secure payment...")
+                Text("Creating your test stake...")
                     .font(.system(.body, design: .rounded, weight: .medium))
                     .foregroundColor(lightGray)
             }
@@ -468,117 +364,6 @@ struct ProcessingOverlay: View {
             )
         }
     }
-}
-
-struct ConsentDetailsView: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    private let blackBg = Color(hex: "000000")
-    private let lightGray = Color(hex: "f6f6f6")
-    private let coral = Color(hex: "f38453")
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                blackBg.ignoresSafeArea()
-                
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 24) {
-                        Text("Payment Terms & Conditions")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .foregroundColor(lightGray)
-                        
-                        VStack(alignment: .leading, spacing: 16) {
-                            DetailSection(
-                                title: "When You'll Be Charged",
-                                content: """
-                                • Only when you exceed your daily screen time limit
-                                • Maximum of one charge per day
-                                • Charges are processed automatically
-                                • Amount matches your stake ($X per violation)
-                                """
-                            )
-                            
-                            DetailSection(
-                                title: "Your Rights",
-                                content: """
-                                • 24-hour window to dispute any charge
-                                • Cancel your stake anytime (future charges only)
-                                • Full transaction history available
-                                • Email receipts for every charge
-                                """
-                            )
-                            
-                            DetailSection(
-                                title: "Data Security",
-                                content: """
-                                • Card details stored securely by Stripe
-                                • We never see or store your full card number
-                                • Apple Pay adds additional biometric security
-                                • PCI DSS compliant payment processing
-                                """
-                            )
-                            
-                            DetailSection(
-                                title: "Charge Limits",
-                                content: """
-                                • Daily cap: Maximum stake amount per day
-                                • Monthly cap: 30x your stake amount
-                                • Automatic pause if unusual activity detected
-                                • No hidden fees or additional charges
-                                """
-                            )
-                        }
-                        
-                        Spacer(minLength: 40)
-                    }
-                    .padding(24)
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                    .foregroundColor(coral)
-                }
-            }
-        }
-        .preferredColorScheme(.dark)
-    }
-}
-
-struct DetailSection: View {
-    let title: String
-    let content: String
-    
-    private let lightGray = Color(hex: "f6f6f6")
-    private let coral = Color(hex: "f38453")
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.system(.headline, design: .rounded, weight: .semibold))
-                .foregroundColor(coral)
-            
-            Text(content)
-                .font(.system(.subheadline, design: .rounded))
-                .foregroundColor(lightGray.opacity(0.8))
-                .fixedSize(horizontal: false, vertical: true)
-        }
-    }
-}
-
-// MARK: - Consent Record Model
-struct ConsentRecord: Codable {
-    let userId: String
-    let stakeId: String
-    let consentedAt: Date
-    let stakeAmount: Double
-    let dailyLimit: Double
-    let paymentMethodId: String
-    let consentText: String
 }
 
 #Preview {

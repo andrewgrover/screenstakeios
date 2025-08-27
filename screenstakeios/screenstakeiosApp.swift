@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FirebaseCore
-import StripeCore
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -15,9 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Configure Firebase
         FirebaseApp.configure()
-        
-        // Configure Stripe
-        configureStripe()
+        print("🔥 Firebase configured")
         
         // Request notification permissions
         requestNotificationPermissions()
@@ -33,29 +30,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
-    private func configureStripe() {
-        // Load Stripe publishable key from configuration
-        let stripeKey = getStripePublishableKey()
-        StripeAPI.defaultPublishableKey = stripeKey
-        
-        // Configure Apple Pay
-        // This will be handled by StripePaymentManager when needed
-    }
-    
-    private func getStripePublishableKey() -> String {
-        // In production, load from secure configuration
-        #if DEBUG
-        // Test key - replace with your actual test key
-        return "pk_test_51O4Qw5KXcoA7fSNmZwKVtR8samplekey"
-        #else
-        // Live key - replace with your actual live key
-        return "pk_live_51O4Qw5KXcoA7fSNmZwKVtR8samplekey"
-        #endif
-    }
-    
     private func requestNotificationPermissions() {
         UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound, .criticalAlert]
+            options: [.alert, .badge, .sound, .criticalAlert] // Kept criticalAlert from original
         ) { granted, error in
             if granted {
                 print("✅ Notification permissions granted")
@@ -67,7 +44,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     private func setupNotificationCategories() {
-        // Charge notification category with actions
+        // Charge notification category with actions (restored from original)
         let disputeAction = UNNotificationAction(
             identifier: "DISPUTE_ACTION",
             title: "Dispute Charge",
@@ -87,7 +64,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             options: []
         )
         
-        // Authentication required category
+        // Authentication required category (restored from original)
         let authenticateAction = UNNotificationAction(
             identifier: "AUTHENTICATE_ACTION",
             title: "Complete Authentication",
@@ -124,7 +101,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         print("❌ Failed to register for remote notifications: \(error)")
     }
     
-    // Handle notification responses
+    // Handle notification responses (restored from original)
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -153,6 +130,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         completionHandler()
     }
     
+    // Notification action handlers (restored from original)
     private func handleDisputeAction(chargeId: String) {
         // Navigate to dispute view
         NotificationCenter.default.post(
@@ -186,13 +164,14 @@ struct screenstakeiosApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var paymentManager = StripePaymentManager.shared
     @StateObject private var monitoringService = StakeMonitoringService.shared
+    
     var body: some Scene {
         WindowGroup {
             RootContainerView()
                 .environmentObject(paymentManager)
                 .environmentObject(monitoringService)
                 .onOpenURL { url in
-                    // Handle Stripe return URLs for 3DS
+                    // Handle Stripe return URLs for 3DS (restored from original)
                     if url.scheme == "screenstake" {
                         handleStripeReturnURL(url)
                     }
@@ -200,6 +179,7 @@ struct screenstakeiosApp: App {
         }
     }
     
+    // Stripe URL handler (restored from original)
     private func handleStripeReturnURL(_ url: URL) {
         // Handle Stripe payment confirmation returns
         if url.host == "stripe-redirect" {
