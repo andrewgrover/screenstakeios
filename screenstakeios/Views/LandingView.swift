@@ -2,7 +2,7 @@
 //  LandingView.swift
 //  screenstakeios
 //
-//  Updated Landing page with navigation to app selection
+//  Updated Landing page - ALL iOS 17.0 compatibility errors fixed
 //
 
 import SwiftUI
@@ -73,7 +73,7 @@ struct LandingView: View {
                         
                         // Trust indicators
                         VStack(spacing: 24) {
-                            // Security badge
+                            // Security badge - FIXED iOS 17.0 compatibility
                             HStack(spacing: 12) {
                                 Image(systemName: "lock.shield.fill")
                                     .font(.system(size: 20))
@@ -94,9 +94,13 @@ struct LandingView: View {
                             .padding(.horizontal, 24)
                             .padding(.vertical, 16)
                             .background(
+                                // FIXED: Replaced .fill() with .foregroundColor() and .overlay()
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.white.opacity(0.05))
-                                    .stroke(coral.opacity(0.2), lineWidth: 1)
+                                    .foregroundColor(Color.white.opacity(0.05))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(coral.opacity(0.2), lineWidth: 1)
+                                    )
                             )
                             
                             // Features grid
@@ -236,7 +240,7 @@ struct LandingView: View {
     }
 }
 
-// Feature item component for trust building
+// Feature item component - FIXED iOS 17.0 compatibility
 struct FeatureItem: View {
     let icon: String
     let title: String
@@ -266,9 +270,13 @@ struct FeatureItem: View {
         .padding(.vertical, 20)
         .padding(.horizontal, 12)
         .background(
+            // FIXED: Replaced .fill() with .foregroundColor() and .overlay()
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white.opacity(0.03))
-                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                .foregroundColor(Color.white.opacity(0.03))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                )
         )
     }
 }

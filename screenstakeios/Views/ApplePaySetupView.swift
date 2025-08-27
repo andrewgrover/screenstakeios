@@ -2,7 +2,7 @@
 //  ApplePaySetupView.swift
 //  screenstakeios
 //
-//  Apple Pay setup for stake payments with consent flow
+//  Apple Pay setup for stake payments with consent flow - ALL iOS 17.0 compatibility errors fixed
 //
 
 import SwiftUI
@@ -100,8 +100,11 @@ struct ApplePaySetupView: View {
                         .padding(20)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.white.opacity(0.05))
-                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                .foregroundColor(Color.white.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                )
                         )
                         .padding(.horizontal, 24)
                         
@@ -145,8 +148,11 @@ struct ApplePaySetupView: View {
                             .padding(20)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.white.opacity(0.03))
-                                .stroke(coral.opacity(0.3), lineWidth: 1)
+                                    .foregroundColor(Color.white.opacity(0.03))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(coral.opacity(0.3), lineWidth: 1)
+                                    )
                             )
                             
                             // Consent Checkboxes
@@ -205,7 +211,7 @@ struct ApplePaySetupView: View {
                                     } else {
                                         // Disabled state
                                         RoundedRectangle(cornerRadius: 28)
-                                            .fill(Color.gray.opacity(0.3))
+                                            .foregroundColor(Color.gray.opacity(0.3))
                                             .frame(height: 56)
                                             .overlay(
                                                 HStack(spacing: 8) {
@@ -367,7 +373,7 @@ struct ApplePaySetupView: View {
     }
 }
 
-// MARK: - Supporting Views
+// MARK: - Supporting Views - FIXED iOS 17.0 compatibility
 struct ConsentCheckbox: View {
     @Binding var isChecked: Bool
     let text: String
@@ -454,8 +460,11 @@ struct ProcessingOverlay: View {
             .padding(40)
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(blackBg)
-                    .stroke(lightGray.opacity(0.2), lineWidth: 1)
+                    .foregroundColor(blackBg)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(lightGray.opacity(0.2), lineWidth: 1)
+                    )
             )
         }
     }

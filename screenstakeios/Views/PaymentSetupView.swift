@@ -2,7 +2,7 @@
 //  PaymentSetupView.swift
 //  screenstakeios
 //
-//  Credit card setup view before creating stakes
+//  Credit card setup view before creating stakes - Fixed iOS compatibility
 //
 
 import SwiftUI
@@ -80,8 +80,11 @@ struct PaymentSetupView: View {
                         .padding(.vertical, 16)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.white.opacity(0.05))
-                                .stroke(coral.opacity(0.2), lineWidth: 1)
+                                .foregroundColor(Color.white.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(coral.opacity(0.2), lineWidth: 1)
+                                )
                         )
                         .padding(.horizontal, 24)
                         
@@ -96,7 +99,7 @@ struct PaymentSetupView: View {
                                 TextField("1234 5678 9012 3456", text: $cardNumber)
                                     .textFieldStyle(CardInputStyle())
                                     .keyboardType(.numberPad)
-                                    .onChange(of: cardNumber) { _, newValue in
+                                    .onChange(of: cardNumber) { newValue in
                                         cardNumber = formatCardNumber(newValue)
                                     }
                             }
@@ -111,7 +114,7 @@ struct PaymentSetupView: View {
                                     TextField("MM/YY", text: $expiryDate)
                                         .textFieldStyle(CardInputStyle())
                                         .keyboardType(.numberPad)
-                                        .onChange(of: expiryDate) { _, newValue in
+                                        .onChange(of: expiryDate) { newValue in
                                             expiryDate = formatExpiryDate(newValue)
                                         }
                                 }
@@ -124,7 +127,7 @@ struct PaymentSetupView: View {
                                     TextField("123", text: $cvv)
                                         .textFieldStyle(CardInputStyle())
                                         .keyboardType(.numberPad)
-                                        .onChange(of: cvv) { _, newValue in
+                                        .onChange(of: cvv) { newValue in
                                             cvv = String(newValue.filter { $0.isNumber }.prefix(4))
                                         }
                                 }
@@ -179,8 +182,11 @@ struct PaymentSetupView: View {
                         .padding(20)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.white.opacity(0.05))
-                                .stroke(coral.opacity(0.3), lineWidth: 1)
+                                .foregroundColor(Color.white.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(coral.opacity(0.3), lineWidth: 1)
+                                )
                         )
                         .padding(.horizontal, 24)
                         
@@ -403,8 +409,11 @@ struct CardInputStyle: TextFieldStyle {
             .padding(.vertical, 14)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white.opacity(0.08))
-                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    .foregroundColor(Color.white.opacity(0.08))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
             )
     }
 }

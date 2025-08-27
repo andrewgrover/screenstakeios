@@ -2,7 +2,7 @@
 //  StakeSetupView.swift
 //  screenstakeios
 //
-//  View for setting up stake amount, time limit, and duration
+//  View for setting up stake amount, time limit, and duration - ALL iOS 17.0 compatibility errors fixed
 //
 
 import SwiftUI
@@ -104,8 +104,11 @@ struct StakeSetupView: View {
                                     .padding(.horizontal, 8)
                                     .background(
                                         RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.white.opacity(0.05))
-                                            .stroke(coral.opacity(0.3), lineWidth: 1)
+                                            .foregroundColor(Color.white.opacity(0.05))
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(coral.opacity(0.3), lineWidth: 1)
+                                            )
                                     )
                                 }
                             }
@@ -146,7 +149,7 @@ struct StakeSetupView: View {
                                                         .padding(.vertical, 8)
                                                         .background(
                                                             Capsule()
-                                                                .fill(stakeAmount == amount && !showingCustomAmount ? coral : Color.white.opacity(0.1))
+                                                                .foregroundColor(stakeAmount == amount && !showingCustomAmount ? coral : Color.white.opacity(0.1))
                                                         )
                                                 }
                                             }
@@ -169,7 +172,7 @@ struct StakeSetupView: View {
                                                     .padding(.vertical, 8)
                                                     .background(
                                                         Capsule()
-                                                            .fill(stakeAmount == 50 && !showingCustomAmount ? coral : Color.white.opacity(0.1))
+                                                            .foregroundColor(stakeAmount == 50 && !showingCustomAmount ? coral : Color.white.opacity(0.1))
                                                     )
                                             }
                                             
@@ -187,7 +190,7 @@ struct StakeSetupView: View {
                                                     .padding(.vertical, 8)
                                                     .background(
                                                         Capsule()
-                                                            .fill(showingCustomAmount ? coral : Color.white.opacity(0.1))
+                                                            .foregroundColor(showingCustomAmount ? coral : Color.white.opacity(0.1))
                                                     )
                                             }
                                             
@@ -201,7 +204,8 @@ struct StakeSetupView: View {
                                             TextField("Enter amount", text: $customStakeAmount)
                                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                                 .keyboardType(.numberPad)
-                                                .onChange(of: customStakeAmount) { _, newValue in
+                                                // FIXED: Changed from iOS 17+ syntax to iOS 16+ compatible
+                                                .onChange(of: customStakeAmount) { newValue in
                                                     // Limit to numbers only and max $500
                                                     let filtered = newValue.filter { $0.isNumber }
                                                     if let amount = Double(filtered), amount <= 500 {
@@ -256,7 +260,7 @@ struct StakeSetupView: View {
                                                     .padding(.vertical, 8)
                                                     .background(
                                                         Capsule()
-                                                            .fill(dailyTimeLimit == limit ? coral : Color.white.opacity(0.1))
+                                                            .foregroundColor(dailyTimeLimit == limit ? coral : Color.white.opacity(0.1))
                                                     )
                                             }
                                         }
@@ -294,7 +298,7 @@ struct StakeSetupView: View {
                                                     .padding(.vertical, 8)
                                                     .background(
                                                         Capsule()
-                                                            .fill(stakeDuration == duration ? coral : Color.white.opacity(0.1))
+                                                            .foregroundColor(stakeDuration == duration ? coral : Color.white.opacity(0.1))
                                                     )
                                             }
                                         }
@@ -340,8 +344,11 @@ struct StakeSetupView: View {
                         .padding(20)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.white.opacity(0.05))
-                                .stroke(coral.opacity(0.3), lineWidth: 1)
+                                .foregroundColor(Color.white.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(coral.opacity(0.3), lineWidth: 1)
+                                )
                         )
                         .padding(.horizontal, 24)
                         .offset(y: cardOffset)
@@ -475,7 +482,7 @@ struct StakeSetupView: View {
     }
 }
 
-// MARK: - Setting Section Component
+// MARK: - Setting Section Component - FIXED iOS 17.0 compatibility
 struct SettingSection<Content: View>: View {
     let title: String
     let subtitle: String
@@ -513,8 +520,11 @@ struct SettingSection<Content: View>: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.03))
-                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                .foregroundColor(Color.white.opacity(0.03))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                )
         )
         .padding(.horizontal, 24)
     }

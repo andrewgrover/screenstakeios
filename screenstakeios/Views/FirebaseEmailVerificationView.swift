@@ -2,7 +2,7 @@
 //  FirebaseEmailVerificationView.swift
 //  screenstakeios
 //
-//  Firebase email verification interface
+//  Firebase email verification interface - Fixed iOS compatibility
 //
 
 import SwiftUI
@@ -84,8 +84,11 @@ struct FirebaseEmailVerificationView: View {
                 .padding(.vertical, 16)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.white.opacity(0.05))
-                        .stroke(coral.opacity(0.2), lineWidth: 1)
+                        .foregroundColor(Color.white.opacity(0.05))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(coral.opacity(0.2), lineWidth: 1)
+                        )
                 )
                 .padding(.horizontal, 24)
                 

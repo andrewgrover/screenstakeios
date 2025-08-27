@@ -3,12 +3,11 @@
 //  screenstakeios
 //
 //  Handles all data persistence using UserDefaults and FileManager
-//  Future-ready for Core Data migration
+//  Future-ready for Core Data migration - Fixed iOS compatibility
 //
 
 import Foundation
 
-@MainActor
 class PersistenceManager: ObservableObject {
     static let shared = PersistenceManager()
     

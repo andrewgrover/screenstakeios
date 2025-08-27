@@ -2,7 +2,7 @@
 //  EmailVerificationView.swift
 //  screenstakeios
 //
-//  Email verification interface
+//  Email verification interface - Fixed iOS compatibility
 //
 
 import SwiftUI
@@ -63,10 +63,14 @@ struct EmailVerificationView: View {
                         .padding(.vertical, 16)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.white.opacity(0.08))
-                                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                .foregroundColor(Color.white.opacity(0.08))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                )
                         )
-                        .onChange(of: verificationCode) { _, newValue in
+                        // Fixed onChange for iOS 16 compatibility
+                        .onChange(of: verificationCode) { newValue in
                             // Limit to 6 digits
                             verificationCode = String(newValue.filter { $0.isNumber }.prefix(6))
                         }

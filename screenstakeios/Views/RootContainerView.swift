@@ -2,7 +2,7 @@
 //  RootContainerView.swift
 //  screenstakeios
 //
-//  Simple auth bypass for development
+//  Simple auth bypass for development - Fixed iOS compatibility
 //
 
 import SwiftUI
@@ -137,7 +137,7 @@ struct MainDashboardView: View {
                         }
                         .padding(.horizontal, 40)
                         
-                        // Debug info
+                        // Debug info - Fixed iOS compatibility
                         VStack(spacing: 8) {
                             Text("🚀 Development Mode")
                                 .font(.system(.headline, design: .rounded, weight: .semibold))
@@ -151,8 +151,11 @@ struct MainDashboardView: View {
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.yellow.opacity(0.1))
-                                .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
+                                .foregroundColor(Color.yellow.opacity(0.1))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
+                                )
                         )
                         .padding(.horizontal, 40)
                     }

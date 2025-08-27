@@ -2,7 +2,7 @@
 //  SMSVerificationView.swift
 //  screenstakeios
 //
-//  SMS verification interface
+//  SMS verification interface - Fixed iOS compatibility
 //
 
 import SwiftUI
@@ -64,10 +64,14 @@ struct SMSVerificationView: View {
                         .padding(.vertical, 20)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.white.opacity(0.08))
-                                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                .foregroundColor(Color.white.opacity(0.08))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                )
                         )
-                        .onChange(of: verificationCode) { _, newValue in
+                        // Fixed onChange for iOS 16 compatibility
+                        .onChange(of: verificationCode) { newValue in
                             // Limit to 6 digits and auto-submit when complete
                             verificationCode = String(newValue.filter { $0.isNumber }.prefix(6))
                             

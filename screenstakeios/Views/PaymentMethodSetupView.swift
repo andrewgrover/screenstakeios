@@ -2,7 +2,7 @@
 //  PaymentMethodSetupView.swift
 //  screenstakeios
 //
-//  Initial payment method setup (different from stake payment)
+//  Initial payment method setup - ALL iOS 17.0 compatibility errors fixed
 //
 
 import SwiftUI
@@ -65,7 +65,7 @@ struct PaymentMethodSetupView: View {
                             .foregroundColor(lightGray.opacity(0.8))
                     }
                     
-                    // Security Notice
+                    // Security Notice - FIXED iOS 17.0 compatibility
                     HStack(spacing: 12) {
                         Image(systemName: "lock.shield.fill")
                             .font(.system(size: 16))
@@ -86,9 +86,13 @@ struct PaymentMethodSetupView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
                     .background(
+                        // FIXED: Replaced .fill() with .foregroundColor() and .overlay()
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.white.opacity(0.05))
-                            .stroke(coral.opacity(0.2), lineWidth: 1)
+                            .foregroundColor(Color.white.opacity(0.05))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(coral.opacity(0.2), lineWidth: 1)
+                            )
                     )
                     .padding(.horizontal, 24)
                     
@@ -101,9 +105,10 @@ struct PaymentMethodSetupView: View {
                                 .foregroundColor(lightGray)
                             
                             TextField("1234 5678 9012 3456", text: $cardNumber)
-                                .textFieldStyle(CardInputStyle())
+                                .textFieldStyle(PaymentCardInputStyle())
                                 .keyboardType(.numberPad)
-                                .onChange(of: cardNumber) { _, newValue in
+                                // FIXED: Changed from iOS 17+ syntax to iOS 16+ compatible
+                                .onChange(of: cardNumber) { newValue in
                                     cardNumber = formatCardNumber(newValue)
                                 }
                         }
@@ -116,9 +121,10 @@ struct PaymentMethodSetupView: View {
                                     .foregroundColor(lightGray)
                                 
                                 TextField("MM/YY", text: $expiryDate)
-                                    .textFieldStyle(CardInputStyle())
+                                    .textFieldStyle(PaymentCardInputStyle())
                                     .keyboardType(.numberPad)
-                                    .onChange(of: expiryDate) { _, newValue in
+                                    // FIXED: Changed from iOS 17+ syntax to iOS 16+ compatible
+                                    .onChange(of: expiryDate) { newValue in
                                         expiryDate = formatExpiryDate(newValue)
                                     }
                             }
@@ -129,9 +135,10 @@ struct PaymentMethodSetupView: View {
                                     .foregroundColor(lightGray)
                                 
                                 TextField("123", text: $cvv)
-                                    .textFieldStyle(CardInputStyle())
+                                    .textFieldStyle(PaymentCardInputStyle())
                                     .keyboardType(.numberPad)
-                                    .onChange(of: cvv) { _, newValue in
+                                    // FIXED: Changed from iOS 17+ syntax to iOS 16+ compatible
+                                    .onChange(of: cvv) { newValue in
                                         cvv = String(newValue.filter { $0.isNumber }.prefix(4))
                                     }
                             }
@@ -144,7 +151,7 @@ struct PaymentMethodSetupView: View {
                                 .foregroundColor(lightGray)
                             
                             TextField(user.fullName, text: $cardholderName)
-                                .textFieldStyle(CardInputStyle())
+                                .textFieldStyle(PaymentCardInputStyle())
                                 .textContentType(.name)
                         }
                     }
@@ -317,6 +324,29 @@ struct PaymentMethodSetupView: View {
         case "3": return "amex"
         default: return "unknown"
         }
+    }
+}
+
+// MARK: - Custom Text Field Style - FIXED iOS 17.0 compatibility
+struct PaymentCardInputStyle: TextFieldStyle {
+    private let lightGray = Color(hex: "f6f6f6")
+    private let coral = Color(hex: "f38453")
+    
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .font(.system(.body, design: .rounded))
+            .foregroundColor(lightGray)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(
+                // FIXED: Replaced .fill() with .foregroundColor() and .overlay()
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundColor(Color.white.opacity(0.08))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+            )
     }
 }
 

@@ -2,7 +2,7 @@
 //  AuthView.swift
 //  screenstakeios
 //
-//  Updated with SMS verification support
+//  Updated with SMS verification support - ALL iOS 17.0 compatibility errors fixed
 //
 
 import SwiftUI
@@ -38,9 +38,13 @@ struct AuthTextField: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
             .background(
+                // FIXED: Replaced .fill() with .foregroundColor() and .overlay()
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white.opacity(0.08))
-                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    .foregroundColor(Color.white.opacity(0.08))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
             )
         }
     }
@@ -105,7 +109,7 @@ struct AuthView: View {
                                 .padding(.vertical, 12)
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(isLogin ? coral : Color.clear)
+                                        .foregroundColor(isLogin ? coral : Color.clear)
                                 )
                         }
                         
@@ -121,14 +125,14 @@ struct AuthView: View {
                                 .padding(.vertical, 12)
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(!isLogin ? coral : Color.clear)
+                                        .foregroundColor(!isLogin ? coral : Color.clear)
                                 )
                         }
                     }
                     .padding(4)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.white.opacity(0.1))
+                            .foregroundColor(Color.white.opacity(0.1))
                     )
                     .padding(.horizontal, 24)
                     
@@ -159,8 +163,11 @@ struct AuthView: View {
                                         .padding(.vertical, 10)
                                         .background(
                                             RoundedRectangle(cornerRadius: 20)
-                                                .fill(registrationData.method == method ? coral : Color.clear)
-                                                .stroke(coral.opacity(0.5), lineWidth: 1)
+                                                .foregroundColor(registrationData.method == method ? coral : Color.clear)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 20)
+                                                        .stroke(coral.opacity(0.5), lineWidth: 1)
+                                                )
                                         )
                                     }
                                 }
@@ -188,7 +195,8 @@ struct AuthView: View {
                                         text: $loginData.phoneNumber,
                                         keyboardType: .numberPad
                                     )
-                                    .onChange(of: loginData.phoneNumber) { _, newValue in
+                                    // FIXED: Changed from iOS 17+ syntax to iOS 16+ compatible
+                                    .onChange(of: loginData.phoneNumber) { newValue in
                                         loginData.phoneNumber = formatPhoneNumber(newValue)
                                     }
                                 }
@@ -231,7 +239,8 @@ struct AuthView: View {
                                         text: $registrationData.phoneNumber,
                                         keyboardType: .numberPad
                                     )
-                                    .onChange(of: registrationData.phoneNumber) { _, newValue in
+                                    // FIXED: Changed from iOS 17+ syntax to iOS 16+ compatible
+                                    .onChange(of: registrationData.phoneNumber) { newValue in
                                         registrationData.phoneNumber = formatPhoneNumber(newValue)
                                     }
                                 }

@@ -2,7 +2,7 @@
 //  AppSelectionView.swift
 //  screenstakeios
 //
-//  View for selecting social media apps to stake on
+//  View for selecting social media apps to stake on - ALL iOS 17.0 compatibility errors fixed
 //
 
 import SwiftUI
@@ -112,8 +112,11 @@ struct AppSelectionView: View {
                                         .padding(.vertical, 6)
                                         .background(
                                             Capsule()
-                                                .fill(coral.opacity(0.2))
-                                                .stroke(coral.opacity(0.4), lineWidth: 1)
+                                                .foregroundColor(coral.opacity(0.2))
+                                                .overlay(
+                                                    Capsule()
+                                                        .stroke(coral.opacity(0.4), lineWidth: 1)
+                                                )
                                         )
                                         .foregroundColor(lightGray)
                                     }
@@ -218,7 +221,7 @@ struct AppSelectionView: View {
     }
 }
 
-// MARK: - App Selection Card
+// MARK: - App Selection Card - FIXED iOS 17.0 compatibility
 struct AppSelectionCard: View {
     let app: SocialApp
     let isSelected: Bool
@@ -243,7 +246,7 @@ struct AppSelectionCard: View {
                 // App Icon
                 ZStack {
                     Circle()
-                        .fill(
+                        .foregroundStyle(
                             LinearGradient(
                                 colors: isSelected ? [coral, coral.opacity(0.8)] : [.white.opacity(0.1), .white.opacity(0.05)],
                                 startPoint: .topLeading,
@@ -281,10 +284,13 @@ struct AppSelectionCard: View {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.white.opacity(isSelected ? 0.08 : 0.03))
-                    .stroke(
-                        isSelected ? coral.opacity(0.6) : Color.white.opacity(0.1),
-                        lineWidth: isSelected ? 2 : 1
+                    .foregroundColor(Color.white.opacity(isSelected ? 0.08 : 0.03))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(
+                                isSelected ? coral.opacity(0.6) : Color.white.opacity(0.1),
+                                lineWidth: isSelected ? 2 : 1
+                            )
                     )
                     .shadow(
                         color: isSelected ? coral.opacity(0.2) : .clear,
