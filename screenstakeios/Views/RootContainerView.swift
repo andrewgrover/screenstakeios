@@ -2,7 +2,7 @@
 //  RootContainerView.swift
 //  screenstakeios
 //
-//  Simple auth bypass for development - Fixed iOS compatibility
+//  Updated to use StakesDashboardView for testing persistence
 //
 
 import SwiftUI
@@ -18,8 +18,8 @@ struct RootContainerView: View {
         Group {
             #if DEBUG
             if skipAuth {
-                // Skip directly to dashboard for development
-                MainDashboardView()
+                // Use the new dashboard for development
+                StakesDashboardView()
                     .environmentObject(persistenceManager)
                     .environmentObject(authManager)
             } else {
@@ -67,106 +67,10 @@ struct RootContainerView: View {
                 .environmentObject(authManager)
             
         case .authenticated(_):
-            // Show stakes dashboard
-            MainDashboardView()
+            // Show the new stakes dashboard
+            StakesDashboardView()
                 .environmentObject(persistenceManager)
                 .environmentObject(authManager)
-        }
-    }
-}
-
-// MARK: - Simple Dashboard (until we fix StakesDashboardView)
-struct MainDashboardView: View {
-    @EnvironmentObject var persistenceManager: PersistenceManager
-    @State private var showingNewStake = false
-    
-    // Brand colors
-    private let blackBg = Color(hex: "000000")
-    private let lightGray = Color(hex: "f6f6f6")
-    private let coral = Color(hex: "f38453")
-    private let orange = Color(hex: "f24b02")
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                blackBg.ignoresSafeArea()
-                
-                VStack(spacing: 40) {
-                    Spacer()
-                    
-                    // Header
-                    VStack(spacing: 20) {
-                        Image(systemName: "target")
-                            .font(.system(size: 64, weight: .thin))
-                            .foregroundColor(coral)
-                        
-                        VStack(spacing: 12) {
-                            Text("Screenstake Dashboard")
-                                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                                .foregroundColor(lightGray)
-                            
-                            Text("Auth bypassed for development")
-                                .font(.system(.body, design: .rounded))
-                                .foregroundColor(lightGray.opacity(0.7))
-                        }
-                    }
-                    
-                    // Quick Actions
-                    VStack(spacing: 16) {
-                        Button(action: {
-                            showingNewStake = true
-                        }) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "plus")
-                                    .font(.system(size: 16, weight: .semibold))
-                                Text("Create Your First Stake")
-                                    .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(
-                                LinearGradient(
-                                    colors: [orange, coral],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .cornerRadius(28)
-                            .shadow(color: orange.opacity(0.3), radius: 20, x: 0, y: 10)
-                        }
-                        .padding(.horizontal, 40)
-                        
-                        // Debug info - Fixed iOS compatibility
-                        VStack(spacing: 8) {
-                            Text("🚀 Development Mode")
-                                .font(.system(.headline, design: .rounded, weight: .semibold))
-                                .foregroundColor(.yellow)
-                            
-                            Text("Set skipAuth = false to test authentication")
-                                .font(.system(.caption, design: .rounded))
-                                .foregroundColor(lightGray.opacity(0.6))
-                                .multilineTextAlignment(.center)
-                        }
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundColor(Color.yellow.opacity(0.1))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
-                                )
-                        )
-                        .padding(.horizontal, 40)
-                    }
-                    
-                    Spacer()
-                }
-            }
-        }
-        .preferredColorScheme(.dark)
-        .fullScreenCover(isPresented: $showingNewStake) {
-            AppSelectionView()
         }
     }
 }
