@@ -1,9 +1,6 @@
-//
-//  PersistenceManager.swift
+
+//  PersistenceManager.swift - COMPLETE UPDATED VERSION
 //  screenstakeios
-//
-//  Handles all data persistence using UserDefaults and FileManager
-//  Future-ready for Core Data migration - Fixed iOS compatibility
 //
 
 import Foundation
@@ -82,6 +79,7 @@ class PersistenceManager: ObservableObject {
         }
     }
     
+    // UPDATED: Enhanced stake creation with lastUpdated
     func createStake(
         selectedApps: [SocialApp],
         dailyTimeLimit: TimeInterval,
@@ -98,11 +96,14 @@ class PersistenceManager: ObservableObject {
             endDate: endDate,
             isActive: true,
             currentUsage: 0,
-            status: .active
+            status: .active,
+            lastUpdated: Date() // NEW: Initialize with current time
         )
         
         currentStakes.append(newStake)
         saveStakes()
+        
+        print("🎯 Created new stake: $\(stakeAmount), \(formatTime(dailyTimeLimit)) limit, \(duration) days")
         
         return newStake
     }
@@ -114,8 +115,24 @@ class PersistenceManager: ObservableObject {
         }
     }
     
+    // NEW: Bulk update stakes (used by tracking service)
+    func updateStakes(_ updatedStakes: [Stake]) {
+        currentStakes = updatedStakes
+        saveStakes()
+    }
+    
     func getActiveStakes() -> [Stake] {
         return currentStakes.filter { $0.isActive && $0.status == .active }
+    }
+    
+    // NEW: Get stakes that need daily reset
+    func getStakesNeedingReset() -> [Stake] {
+        let calendar = Calendar.current
+        return currentStakes.filter { stake in
+            stake.isActive && 
+            stake.status == .active && 
+            !calendar.isDate(stake.lastUpdated, inSameDayAs: Date())
+        }
     }
     
     // MARK: - Usage Data
@@ -141,6 +158,24 @@ class PersistenceManager: ObservableObject {
     func addUsageData(_ usage: AppUsageData) {
         usageHistory.append(usage)
         saveUsageData()
+    }
+    
+    // NEW: Clean up completed/failed stakes older than 30 days
+    func cleanupOldStakes() {
+        let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date()
+        
+        let originalCount = currentStakes.count
+        currentStakes = currentStakes.filter { stake in
+            if !stake.isActive && stake.endDate < thirtyDaysAgo {
+                return false // Remove old inactive stakes
+            }
+            return true
+        }
+        
+        if currentStakes.count != originalCount {
+            saveStakes()
+            print("🧹 Cleaned up \(originalCount - currentStakes.count) old stakes")
+        }
     }
     
     // MARK: - Data Migration & Cleanup
@@ -208,5 +243,17 @@ class PersistenceManager: ObservableObject {
         saveStakes()
         saveUserPreferences()
         saveUsageData()
+    }
+    
+    // MARK: - Utility
+    private func formatTime(_ seconds: TimeInterval) -> String {
+        let hours = Int(seconds) / 3600
+        let minutes = (Int(seconds) % 3600) / 60
+        
+        if hours > 0 {
+            return "\(hours)h \(minutes)m"
+        } else {
+            return "\(minutes)m"
+        }
     }
 }

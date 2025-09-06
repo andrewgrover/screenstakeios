@@ -1,13 +1,12 @@
 //
-//  screenstakeiosApp.swift
+//  screenstakeiosApp.swift - COMPLETE UPDATED VERSION
 //  screenstakeios
-//
-//  Created by Andrew Grover on 8/14/25.
 //
 
 import SwiftUI
 import FirebaseCore
 import UserNotifications
+import FamilyControls
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -32,7 +31,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     private func requestNotificationPermissions() {
         UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound, .criticalAlert] // Kept criticalAlert from original
+            options: [.alert, .badge, .sound, .criticalAlert]
         ) { granted, error in
             if granted {
                 print("✅ Notification permissions granted")
@@ -44,7 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     private func setupNotificationCategories() {
-        // Charge notification category with actions (restored from original)
+        // Charge notification category with actions
         let disputeAction = UNNotificationAction(
             identifier: "DISPUTE_ACTION",
             title: "Dispute Charge",
@@ -64,7 +63,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             options: []
         )
         
-        // Authentication required category (restored from original)
+        // Authentication required category
         let authenticateAction = UNNotificationAction(
             identifier: "AUTHENTICATE_ACTION",
             title: "Complete Authentication",
@@ -101,7 +100,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         print("❌ Failed to register for remote notifications: \(error)")
     }
     
-    // Handle notification responses (restored from original)
+    // Handle notification responses
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -130,7 +129,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         completionHandler()
     }
     
-    // Notification action handlers (restored from original)
+    // Notification action handlers
     private func handleDisputeAction(chargeId: String) {
         // Navigate to dispute view
         NotificationCenter.default.post(
@@ -164,14 +163,16 @@ struct screenstakeiosApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var paymentManager = StripePaymentManager.shared
     @StateObject private var monitoringService = StakeMonitoringService.shared
+    @StateObject private var trackingService = StakeTrackingService.shared
     
     var body: some Scene {
         WindowGroup {
             RootContainerView()
                 .environmentObject(paymentManager)
                 .environmentObject(monitoringService)
+                .environmentObject(trackingService)
                 .onOpenURL { url in
-                    // Handle Stripe return URLs for 3DS (restored from original)
+                    // Handle Stripe return URLs for 3DS
                     if url.scheme == "screenstake" {
                         handleStripeReturnURL(url)
                     }
@@ -179,7 +180,7 @@ struct screenstakeiosApp: App {
         }
     }
     
-    // Stripe URL handler (restored from original)
+    // Stripe URL handler
     private func handleStripeReturnURL(_ url: URL) {
         // Handle Stripe payment confirmation returns
         if url.host == "stripe-redirect" {

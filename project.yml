@@ -27,7 +27,7 @@ targets:
         children:
           - screenstakeiosApp.swift
           - AppCoordinator.swift
-          - ColorExtensions.swift  # ← ADD THIS LINE
+          - ColorExtensions.swift
           - path: Models
             createIntermediateGroups: true
             children:
@@ -38,6 +38,8 @@ targets:
               - FirebaseAuthManager.swift
               - StripePaymentManager.swift
               - StakeMonitoringService.swift
+              - StakeTrackingService.swift  # ← NEW FILE
+              - ScreenTimeManager.swift     # ← NEW FILE
           - path: Views
             createIntermediateGroups: true
             children:
@@ -53,6 +55,7 @@ targets:
               - PaymentMethodSetupView.swift
               - FirebaseEmailVerificationView.swift
               - SMSVerificationView.swift
+              - StakesDashboardView.swift    # ← ALREADY EXISTS, WILL BE UPDATED
     resources:
       - screenstakeios/Assets.xcassets
       - screenstakeios/Preview Content
@@ -121,7 +124,24 @@ targets:
       release:
         DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
         SWIFT_OPTIMIZATION_LEVEL: "-O"
-
+  ScreenstakeActivityReport:
+    type: app-extension.deviceactivityreport
+    platform: iOS
+    sources:
+      - path: ScreenstakeActivityReport
+        createIntermediateGroups: true
+        children:
+          - DeviceActivityReportScene.swift
+          - ScreenTimeReportView.swift
+    dependencies:
+      - target: screenstakeios
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.andyg.screenstake.activityreport
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: KAZMRW253H
+        IPHONEOS_DEPLOYMENT_TARGET: 16.0
+        SWIFT_VERSION: 5.10
 schemes:
   screenstakeios:
     shared: true

@@ -12,7 +12,7 @@
     <key>aps-environment</key>
     <string>development</string>
     
-    <!-- Family Controls (Screen Time) -->
+    <!-- Family Controls (Screen Time) - REQUIRED FOR REAL TRACKING -->
     <key>com.apple.developer.family-controls</key>
     <true/>
     

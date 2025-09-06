@@ -1,16 +1,19 @@
 //
-//  StakesDashboardView.swift
+//  StakesDashboardView.swift - COMPLETE UPDATED VERSION
 //  screenstakeios
-//
-//  Home screen showing active and past stakes for testing persistence
 //
 
 import SwiftUI
 
 struct StakesDashboardView: View {
     @EnvironmentObject var persistenceManager: PersistenceManager
+    @StateObject private var trackingService = StakeTrackingService.shared
     @State private var showingNewStake = false
     @State private var refreshing = false
+    @State private var currentTime = Date()
+    
+    // Auto-refresh timer
+    @State private var refreshTimer: Timer?
     
     // Brand colors
     private let blackBg = Color(hex: "000000")
@@ -35,20 +38,20 @@ struct StakesDashboardView: View {
                 
                 ScrollView {
                     LazyVStack(spacing: 24) {
-                        // Header
+                        // Header with real-time status
                         headerSection
                         
                         // Quick Stats
                         quickStatsSection
                         
-                        // Active Stakes Section
+                        // Active Stakes Section (real-time)
                         activeStakesSection
                         
                         // Past Stakes Section
                         pastStakesSection
                         
-                        // Debug Section (for testing)
-                        debugSection
+                        // Testing Controls
+                        testingControlsSection
                         
                         Spacer(minLength: 100)
                     }
@@ -93,12 +96,32 @@ struct StakesDashboardView: View {
             AppSelectionView()
         }
         .onAppear {
-            // Reload data when view appears to test persistence
             persistenceManager.loadStakes()
+            startRealTimeUpdates()
+        }
+        .onDisappear {
+            stopRealTimeUpdates()
+        }
+        .environmentObject(trackingService)
+    }
+    
+    // MARK: - Real-time Updates
+    private func startRealTimeUpdates() {
+        print("🔄 Starting real-time dashboard updates")
+        
+        // Refresh every 30 seconds for live progress
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            currentTime = Date()
+            persistenceManager.loadStakes() // Reload to get latest tracking updates
         }
     }
     
-    // MARK: - Header Section
+    private func stopRealTimeUpdates() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
+    }
+    
+    // MARK: - Header Section with Status
     private var headerSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -107,14 +130,27 @@ struct StakesDashboardView: View {
                         .font(.system(.largeTitle, design: .rounded, weight: .bold))
                         .foregroundColor(lightGray)
                     
-                    Text("Your digital accountability")
-                        .font(.system(.subheadline, design: .rounded))
-                        .foregroundColor(lightGray.opacity(0.7))
+                    HStack(spacing: 8) {
+                        Text("Your digital accountability")
+                            .font(.system(.subheadline, design: .rounded))
+                            .foregroundColor(lightGray.opacity(0.7))
+                        
+                        // Real-time tracking indicator
+                        HStack(spacing: 4) {
+                            Circle()
+                                .fill(trackingService.isTrackingActive ? .green : .red)
+                                .frame(width: 8, height: 8)
+                            
+                            Text(trackingService.isTrackingActive ? "Live" : "Offline")
+                                .font(.system(.caption, design: .rounded, weight: .medium))
+                                .foregroundColor(trackingService.isTrackingActive ? .green : .red)
+                        }
+                    }
                 }
                 
                 Spacer()
                 
-                // Refresh button for testing
+                // Refresh button
                 Button(action: {
                     Task { await refreshData() }
                 }) {
@@ -125,6 +161,11 @@ struct StakesDashboardView: View {
                         .animation(refreshing ? .linear(duration: 1).repeatForever(autoreverses: false) : .default, value: refreshing)
                 }
             }
+            
+            // Current time for reference
+            Text("Updated: \(currentTime.formatted(date: .omitted, time: .shortened))")
+                .font(.system(.caption, design: .rounded))
+                .foregroundColor(lightGray.opacity(0.5))
         }
     }
     
@@ -165,12 +206,12 @@ struct StakesDashboardView: View {
         }
     }
     
-    // MARK: - Active Stakes Section
+    // MARK: - Active Stakes Section with Real-time Data
     private var activeStakesSection: some View {
         VStack(spacing: 16) {
             SectionHeader(
                 title: "Active Stakes",
-                subtitle: "\(activeStakes.count) running",
+                subtitle: "\(activeStakes.count) running • Live tracking",
                 icon: "play.circle.fill"
             )
             
@@ -188,6 +229,7 @@ struct StakesDashboardView: View {
                 LazyVStack(spacing: 12) {
                     ForEach(activeStakes) { stake in
                         ActiveStakeCard(stake: stake)
+                            .environmentObject(trackingService)
                     }
                 }
             }
@@ -226,46 +268,369 @@ struct StakesDashboardView: View {
             }
         }
     }
-    
-    // MARK: - Debug Section
-    private var debugSection: some View {
-        VStack(spacing: 12) {
-            SectionHeader(
-                title: "Debug Info",
-                subtitle: "For testing persistence",
-                icon: "ladybug.fill"
-            )
-            
+    // MARK: - Corrected Testing Controls
+    private var testingControlsSection: some View {
+    VStack(spacing: 16) {
+        SectionHeader(
+            title: "Testing Controls",
+            subtitle: RealScreenTimeManager.shared.getTrackingStatus(),
+            icon: "testtube.2"
+        )
+        
+        VStack(spacing: 16) {
+            // Real Screen Time Status
             VStack(spacing: 8) {
-                DebugRow(label: "Total Stakes in Memory", value: "\(persistenceManager.currentStakes.count)")
-                DebugRow(label: "Active Stakes", value: "\(activeStakes.count)")
-                DebugRow(label: "Completed Stakes", value: "\(pastStakes.filter { $0.status == .completed }.count)")
-                DebugRow(label: "Failed Stakes", value: "\(pastStakes.filter { $0.status == .failed }.count)")
+                HStack {
+                    Text("Screen Time Status")
+                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                        .foregroundColor(lightGray)
+                    
+                    Spacer()
+                    
+                    Button("Request Access") {
+                        Task {
+                            try? await RealScreenTimeManager.shared.requestScreenTimeAccess()
+                        }
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    .disabled(RealScreenTimeManager.shared.isAuthorized)
+                }
+                
+                Text(RealScreenTimeManager.shared.getTrackingStatus())
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundColor(RealScreenTimeManager.shared.isAuthorized ? .green : .orange)
+            }
+            
+            Divider()
+                .background(Color.white.opacity(0.1))
+            
+            // Current Usage Display
+            VStack(spacing: 8) {
+                Text("Current Usage Today")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundColor(lightGray)
+                
+                LazyVGrid(columns: [
+                    GridItem(.flexible()),
+                    GridItem(.flexible())
+                ], spacing: 8) {
+                    ForEach(SocialApp.availableApps, id: \.id) { app in
+                        HStack(spacing: 6) {
+                            Image(systemName: app.iconName)
+                                .font(.system(size: 12))
+                                .foregroundColor(coral)
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(app.displayName)
+                                    .font(.system(.caption2, design: .rounded, weight: .medium))
+                                    .foregroundColor(lightGray)
+                                    .lineLimit(1)
+                                
+                                Text(formatTime(trackingService.getUsageForApp(app.bundleIdentifier)))
+                                    .font(.system(.caption2, design: .rounded))
+                                    .foregroundColor(coral)
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
+                                .foregroundColor(Color.white.opacity(0.03))
+                        )
+                    }
+                }
+            }
+            
+            Divider()
+                .background(Color.white.opacity(0.1))
+            
+            // CORRECTED: Stake-Focused Simulation
+            VStack(spacing: 12) {
+                Text("🎯 Simulate Usage for Active Stakes")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundColor(lightGray)
+                
+                Text("Adds time only to apps in your active stakes")
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundColor(lightGray.opacity(0.7))
+                
+                HStack(spacing: 8) {
+                    Button("15min") {
+                        trackingService.simulateUsageForActiveStakes(totalMinutes: 15)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("30min") {
+                        trackingService.simulateUsageForActiveStakes(totalMinutes: 30)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("1hr") {
+                        trackingService.simulateUsageForActiveStakes(totalMinutes: 60)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("2hr") {
+                        trackingService.simulateUsageForActiveStakes(totalMinutes: 120)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                }
+            }
+            
+            // CORRECTED: Global Time Simulation  
+            VStack(spacing: 12) {
+                Text("⏰ Simulate Time Passage (All Apps)")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundColor(lightGray)
+                
+                Text("Simulates realistic usage across all apps over time")
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundColor(lightGray.opacity(0.7))
+                
+                HStack(spacing: 8) {
+                    Button("1hr") {
+                        trackingService.simulateTimePassage(hours: 1)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("2hr") {
+                        trackingService.simulateTimePassage(hours: 2)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("4hr") {
+                        trackingService.simulateTimePassage(hours: 4)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("8hr") {
+                        trackingService.simulateTimePassage(hours: 8)
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
+                }
+            }
+            
+            Divider()
+                .background(Color.white.opacity(0.1))
+            
+            // Individual App Controls
+            VStack(spacing: 12) {
+                Text("📱 Set Exact App Usage")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundColor(lightGray)
+                
+                LazyVGrid(columns: [
+                    GridItem(.flexible()),
+                    GridItem(.flexible())
+                ], spacing: 8) {
+                    ForEach(SocialApp.availableApps.prefix(4), id: \.id) { app in
+                        Menu {
+                            Button("Set to 15 min") {
+                                trackingService.setUsageForTesting(app: app, minutes: 15)
+                                hapticFeedback(.light)
+                            }
+                            Button("Set to 30 min") {
+                                trackingService.setUsageForTesting(app: app, minutes: 30)
+                                hapticFeedback(.light)
+                            }
+                            Button("Set to 45 min") {
+                                trackingService.setUsageForTesting(app: app, minutes: 45)
+                                hapticFeedback(.light)
+                            }
+                            Button("Set to 1 hour") {
+                                trackingService.setUsageForTesting(app: app, minutes: 60)
+                                hapticFeedback(.light)
+                            }
+                            Button("Set to 2 hours") {
+                                trackingService.setUsageForTesting(app: app, minutes: 120)
+                                hapticFeedback(.light)
+                            }
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: app.iconName)
+                                    .font(.system(size: 14))
+                                    .foregroundColor(coral)
+                                
+                                Text(app.displayName)
+                                    .font(.system(.caption, design: .rounded, weight: .medium))
+                                    .foregroundColor(lightGray)
+                                    .lineLimit(1)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 10))
+                                    .foregroundColor(lightGray.opacity(0.6))
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundColor(Color.white.opacity(0.05))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(coral.opacity(0.3), lineWidth: 1)
+                                    )
+                            )
+                        }
+                    }
+                }
+            }
+            
+            Divider()
+                .background(Color.white.opacity(0.1))
+            
+            // Management Controls
+            VStack(spacing: 12) {
+                Text("🔄 Management")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundColor(lightGray)
                 
                 HStack(spacing: 12) {
-                    Button("Add Test Stake") {
-                        addTestStake()
+                    Button("🌅 Reset Day") {
+                        trackingService.resetUsageForTesting()
+                        hapticFeedback(.success)
                     }
-                    .buttonStyle(DebugButtonStyle())
+                    .buttonStyle(TestButtonStyle())
                     
-                    Button("Clear All Data") {
-                        clearAllData()
+                    Button("🎯 Test Stake") {
+                        addTestStakeWithLowLimit()
+                        hapticFeedback(.success)
                     }
-                    .buttonStyle(DebugButtonStyle(isDestructive: true))
+                    .buttonStyle(TestButtonStyle())
+                    
+                    Button("🔄 Refresh") {
+                        Task {
+                            await refreshData()
+                            await RealScreenTimeManager.shared.forceRefreshUsage()
+                        }
+                        hapticFeedback(.light)
+                    }
+                    .buttonStyle(TestButtonStyle())
                 }
-                .padding(.top, 8)
+                
+                HStack(spacing: 12) {
+                    Button("🗑️ Clear Stakes") {
+                        persistenceManager.clearCache()
+                        hapticFeedback(.warning)
+                    }
+                    .buttonStyle(TestButtonStyle(isDestructive: true))
+                    
+                    Spacer()
+                }
             }
-            .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(Color.white.opacity(0.05))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
-                    )
-            )
         }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundColor(Color.white.opacity(0.03))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(RealScreenTimeManager.shared.isAuthorized ? Color.green.opacity(0.3) : Color.yellow.opacity(0.3), lineWidth: 1)
+                )
+        )
     }
+}
+    
+
+// MARK: - Helper Methods (add these to StakesDashboardView)
+private func addTestStakeWithLowLimit() {
+    // Create stakes with very low limits for easy testing
+    let testApps = Array(SocialApp.availableApps.prefix(Int.random(in: 1...2)))
+    let amounts = [5.0, 10.0]
+    let durations = [1, 3]
+    let limits = [15.0, 30.0, 45.0] // Very low limits in minutes
+    
+    let selectedLimit = limits.randomElement()!
+    let _ = persistenceManager.createStake(
+        selectedApps: testApps,
+        dailyTimeLimit: selectedLimit * 60, // convert to seconds
+        stakeAmount: amounts.randomElement()!,
+        duration: durations.randomElement()!
+    )
+    
+    let apps = testApps.map { $0.displayName }.joined(separator: ", ")
+    print("🎯 Created test stake: \(apps) - \(Int(selectedLimit)) min limit - $\(amounts.last!))")
+}
+
+
+func simulateUsageForActiveStakes(totalMinutes: Double) {
+    let totalSeconds = totalMinutes * 60
+    print("🎯 Simulating \(totalMinutes) minutes for active stakes...")
+    
+    let activeStakes = persistenceManager.getActiveStakes()
+    guard !activeStakes.isEmpty else {
+        print("⚠️ No active stakes found")
+        return
+    }
+    
+    // Get all unique apps from active stakes
+    let allStakeApps = Set(activeStakes.flatMap { $0.selectedApps })
+    let usagePerApp = totalSeconds / Double(allStakeApps.count)
+    
+    print("📊 Adding \(formatTime(usagePerApp)) to each of \(allStakeApps.count) tracked apps")
+    
+    for app in allStakeApps {
+        let currentUsage = currentDayUsage[app.bundleIdentifier] ?? 0
+        let newUsage = currentUsage + usagePerApp
+        currentDayUsage[app.bundleIdentifier] = newUsage
+        baseUsageData[app.bundleIdentifier] = newUsage
+        
+        print("   \(app.displayName): \(formatTime(currentUsage)) → \(formatTime(newUsage))")
+    }
+    
+    saveUsageData()
+    
+    Task {
+        await updateUsageAndCheckStakes()
+    }
+    
+    print("✅ Added \(formatTime(totalSeconds)) total across \(allStakeApps.count) apps")
+}
+
+func setUsageForTesting(app: SocialApp, minutes: Double) {
+    let seconds = minutes * 60
+    currentDayUsage[app.bundleIdentifier] = seconds
+    baseUsageData[app.bundleIdentifier] = seconds
+    saveUsageData()
+    
+    Task {
+        await updateUsageAndCheckStakes()
+    }
+    
+    print("🧪 Set \(app.displayName) to exactly \(formatTime(seconds))")
+}
+
+private func hapticFeedback(_ style: UINotificationFeedbackGenerator.FeedbackType) {
+    let feedback = UINotificationFeedbackGenerator()
+    feedback.notificationOccurred(style)
+}
+
+private func hapticFeedback(_ style: UIImpactFeedbackGenerator.FeedbackStyle) {
+    let feedback = UIImpactFeedbackGenerator(style: style)
+    feedback.impactOccurred()
+}
+
+private func formatTime(_ seconds: TimeInterval) -> String {
+    let hours = Int(seconds) / 3600
+    let minutes = (Int(seconds) % 3600) / 60
+    
+    if hours > 0 {
+        return "\(hours)h \(minutes)m"
+    } else {
+        return "\(minutes)m"
+    }
+}
     
     // MARK: - Computed Properties
     private var totalMoneyNotLost: Int {
@@ -293,6 +658,7 @@ struct StakesDashboardView: View {
         
         // Reload from disk to test persistence
         persistenceManager.loadStakes()
+        currentTime = Date()
         
         refreshing = false
     }
@@ -310,17 +676,8 @@ struct StakesDashboardView: View {
             duration: durations.randomElement()!
         )
         
-        // Add haptic feedback
         let feedback = UINotificationFeedbackGenerator()
         feedback.notificationOccurred(.success)
-    }
-    
-    private func clearAllData() {
-        persistenceManager.clearCache()
-        
-        // Add haptic feedback
-        let feedback = UINotificationFeedbackGenerator()
-        feedback.notificationOccurred(.warning)
     }
 }
 
@@ -392,20 +749,58 @@ struct SectionHeader: View {
 
 struct ActiveStakeCard: View {
     let stake: Stake
+    @EnvironmentObject var trackingService: StakeTrackingService
+    
+    // Auto-refresh every 30 seconds
+    @State private var refreshTimer: Timer?
+    @State private var currentTime = Date()
     
     private let lightGray = Color(hex: "f6f6f6")
     private let coral = Color(hex: "f38453")
     private let orange = Color(hex: "f24b02")
     
+    // Real-time calculations
+    private var currentUsage: TimeInterval {
+        trackingService.getTotalUsageForStake(stake)
+    }
+    
+    private var dailyProgress: Double {
+        guard stake.dailyTimeLimit > 0 else { return 0 }
+        return min(1.0, currentUsage / stake.dailyTimeLimit)
+    }
+    
+    private var progressColor: Color {
+        switch dailyProgress {
+        case 1.0...: return .red
+        case 0.9..<1.0: return .orange
+        case 0.7..<0.9: return .yellow
+        default: return coral
+        }
+    }
+    
+    private var urgencyLevel: UrgencyLevel {
+        switch dailyProgress {
+        case 1.0...: return .critical
+        case 0.9..<1.0: return .high
+        case 0.7..<0.9: return .medium
+        default: return .low
+        }
+    }
+    
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
+            // Header with urgency indicator
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("$\(Int(stake.stakeAmount)) at risk")
-                        .font(.system(.headline, design: .rounded, weight: .bold))
-                        .foregroundColor(coral)
+                    HStack(spacing: 8) {
+                        Text("$\(Int(stake.stakeAmount)) at risk")
+                            .font(.system(.headline, design: .rounded, weight: .bold))
+                            .foregroundColor(coral)
+                        
+                        urgencyIndicator
+                    }
                     
-                    Text("\(stake.selectedApps.map { $0.displayName }.joined(separator: ", "))")
+                    Text(stake.selectedApps.map { $0.displayName }.joined(separator: ", "))
                         .font(.system(.subheadline, design: .rounded))
                         .foregroundColor(lightGray.opacity(0.8))
                         .lineLimit(1)
@@ -414,39 +809,229 @@ struct ActiveStakeCard: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text("\(stake.daysRemaining) days left")
+                    Text(daysRemainingText)
                         .font(.system(.caption, design: .rounded, weight: .medium))
                         .foregroundColor(lightGray)
                     
-                    Text("Daily limit: \(formatTimeLimit(stake.dailyTimeLimit))")
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundColor(lightGray.opacity(0.6))
+                    Text("Updated: \(trackingService.lastUpdateTime.formatted(date: .omitted, time: .shortened))")
+                        .font(.system(.caption2, design: .rounded))
+                        .foregroundColor(lightGray.opacity(0.5))
                 }
             }
             
-            // Progress bar (mock data for now)
-            ProgressView(value: 0.3)
-                .progressViewStyle(LinearProgressViewStyle(tint: coral))
+            // Usage information with real-time updates
+            VStack(spacing: 12) {
+                HStack {
+                    Text("Today's Usage:")
+                        .font(.system(.subheadline, design: .rounded, weight: .medium))
+                        .foregroundColor(lightGray)
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text("\(formatTime(currentUsage)) / \(formatTime(stake.dailyTimeLimit))")
+                            .font(.system(.subheadline, design: .rounded, weight: .bold))
+                            .foregroundColor(progressColor)
+                        
+                        if dailyProgress > 1.0 {
+                            Text("EXCEEDED by \(formatTime(currentUsage - stake.dailyTimeLimit))")
+                                .font(.system(.caption, design: .rounded, weight: .bold))
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                
+                // Enhanced progress bar with animation
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        // Background
+                        Rectangle()
+                            .fill(Color.white.opacity(0.1))
+                            .frame(height: 8)
+                            .cornerRadius(4)
+                        
+                        // Progress fill
+                        Rectangle()
+                            .fill(LinearGradient(
+                                colors: [progressColor, progressColor.opacity(0.8)],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            ))
+                            .frame(width: geometry.size.width * min(1.0, dailyProgress), height: 8)
+                            .cornerRadius(4)
+                            .animation(.easeInOut(duration: 0.5), value: dailyProgress)
+                        
+                        // Over-limit indicator
+                        if dailyProgress > 1.0 {
+                            Rectangle()
+                                .fill(Color.red.opacity(0.3))
+                                .frame(height: 8)
+                                .cornerRadius(4)
+                                .overlay(
+                                    HStack(spacing: 4) {
+                                        ForEach(0..<3, id: \.self) { _ in
+                                            Rectangle()
+                                                .fill(Color.red)
+                                                .frame(width: 2, height: 8)
+                                        }
+                                    }
+                                )
+                        }
+                    }
+                }
+                .frame(height: 8)
+                
+                // Status and time remaining
+                HStack {
+                    statusMessage
+                    
+                    Spacer()
+                    
+                    Text("\(Int(dailyProgress * 100))%")
+                        .font(.system(.caption, design: .rounded, weight: .bold))
+                        .foregroundColor(progressColor)
+                }
+            }
+            
+            // Overall stake progress (time-based)
+            if calculateRealDaysRemaining() > 0 {
+                VStack(spacing: 4) {
+                    HStack {
+                        Text("Stake Progress:")
+                            .font(.system(.caption, design: .rounded))
+                            .foregroundColor(lightGray.opacity(0.7))
+                        
+                        Spacer()
+                        
+                        Text("\(Int(stake.overallProgress * 100))% complete")
+                            .font(.system(.caption, design: .rounded, weight: .medium))
+                            .foregroundColor(lightGray.opacity(0.7))
+                    }
+                    
+                    ProgressView(value: stake.overallProgress)
+                        .progressViewStyle(LinearProgressViewStyle(tint: coral.opacity(0.6)))
+                        .background(Color.white.opacity(0.05))
+                        .cornerRadius(2)
+                        .scaleEffect(y: 0.5)
+                }
+            }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .foregroundColor(Color.white.opacity(0.05))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(coral.opacity(0.3), lineWidth: 1)
-                )
-        )
+        .background(cardBackground)
+        .onAppear(perform: startRefreshTimer)
+        .onDisappear(perform: stopRefreshTimer)
     }
     
-    private func formatTimeLimit(_ seconds: TimeInterval) -> String {
-        let minutes = seconds / 60
-        if minutes < 60 {
-            return "\(Int(minutes))m"
-        } else {
-            return "\(Int(minutes / 60))h"
+    // MARK: - View Components
+    private var urgencyIndicator: some View {
+        Group {
+            switch urgencyLevel {
+            case .critical:
+                HStack(spacing: 4) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.red)
+                    Text("EXCEEDED")
+                        .font(.system(.caption, design: .rounded, weight: .bold))
+                        .foregroundColor(.red)
+                }
+            case .high:
+                HStack(spacing: 4) {
+                    Image(systemName: "clock.badge.exclamationmark")
+                        .foregroundColor(.orange)
+                    Text("URGENT")
+                        .font(.system(.caption, design: .rounded, weight: .bold))
+                        .foregroundColor(.orange)
+                }
+            case .medium:
+                Image(systemName: "clock.fill")
+                    .foregroundColor(.yellow)
+            case .low:
+                Image(systemName: "checkmark.circle")
+                    .foregroundColor(.green)
+            }
+        }
+        .font(.system(size: 14))
+    }
+    
+    private var statusMessage: some View {
+        Group {
+            if dailyProgress > 1.0 {
+                Text("⚠️ LIMIT EXCEEDED")
+                    .font(.system(.caption, design: .rounded, weight: .bold))
+                    .foregroundColor(.red)
+            } else if dailyProgress > 0.9 {
+                Text("🚨 \(formatTime(stake.dailyTimeLimit - currentUsage)) remaining")
+                    .font(.system(.caption, design: .rounded, weight: .semibold))
+                    .foregroundColor(.orange)
+            } else {
+                Text("\(formatTime(stake.dailyTimeLimit - currentUsage)) remaining")
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundColor(lightGray.opacity(0.7))
+            }
         }
     }
+    
+    private var cardBackground: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .foregroundColor(Color.white.opacity(urgencyLevel == .critical ? 0.08 : 0.05))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(progressColor.opacity(urgencyLevel.rawValue > 2 ? 0.6 : 0.3), 
+                           lineWidth: urgencyLevel.rawValue > 2 ? 2 : 1)
+            )
+    }
+    
+    // MARK: - Computed Properties
+    private var daysRemainingText: String {
+        let days = calculateRealDaysRemaining()
+        switch days {
+        case 0: return "Last day!"
+        case 1: return "1 day left"
+        default: return "\(days) days left"
+        }
+    }
+    
+    // MARK: - Helper Methods
+    private func startRefreshTimer() {
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            currentTime = Date()
+        }
+    }
+    
+    private func stopRefreshTimer() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
+    }
+    
+    private func calculateRealDaysRemaining() -> Int {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        if now >= stake.endDate {
+            return 0
+        }
+        
+        let components = calendar.dateComponents([.day], from: now, to: stake.endDate)
+        return max(0, components.day ?? 0)
+    }
+    
+    private func formatTime(_ seconds: TimeInterval) -> String {
+        let hours = Int(seconds) / 3600
+        let minutes = (Int(seconds) % 3600) / 60
+        
+        if hours > 0 {
+            return "\(hours)h \(minutes)m"
+        } else {
+            return "\(minutes)m"
+        }
+    }
+}
+
+enum UrgencyLevel: Int {
+    case low = 1
+    case medium = 2
+    case high = 3
+    case critical = 4
 }
 
 struct PastStakeRow: View {
@@ -566,28 +1151,7 @@ struct EmptyStateView: View {
     }
 }
 
-struct DebugRow: View {
-    let label: String
-    let value: String
-    
-    private let lightGray = Color(hex: "f6f6f6")
-    
-    var body: some View {
-        HStack {
-            Text(label)
-                .font(.system(.caption, design: .rounded))
-                .foregroundColor(lightGray.opacity(0.7))
-            
-            Spacer()
-            
-            Text(value)
-                .font(.system(.caption, design: .rounded, weight: .medium))
-                .foregroundColor(lightGray)
-        }
-    }
-}
-
-struct DebugButtonStyle: ButtonStyle {
+struct TestButtonStyle: ButtonStyle {
     var isDestructive = false
     
     func makeBody(configuration: Configuration) -> some View {
@@ -595,16 +1159,12 @@ struct DebugButtonStyle: ButtonStyle {
             .font(.system(.caption, design: .rounded, weight: .medium))
             .foregroundColor(.white)
             .padding(.horizontal, 12)
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 6)
+                RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(isDestructive ? .red.opacity(0.8) : Color(hex: "f38453"))
                     .opacity(configuration.isPressed ? 0.7 : 1.0)
             )
     }
 }
 
-#Preview {
-    StakesDashboardView()
-        .environmentObject(PersistenceManager.shared)
-}

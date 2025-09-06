@@ -1,8 +1,6 @@
 //
-//  RootContainerView.swift
+//  RootContainerView.swift - COMPLETE UPDATED VERSION
 //  screenstakeios
-//
-//  Updated to use StakesDashboardView for testing persistence
 //
 
 import SwiftUI
@@ -10,6 +8,7 @@ import SwiftUI
 struct RootContainerView: View {
     @StateObject private var persistenceManager = PersistenceManager.shared
     @StateObject private var authManager = FirebaseAuthManager()
+    @StateObject private var trackingService = StakeTrackingService.shared
     
     // 🚀 TOGGLE THIS TO BYPASS AUTH
     private let skipAuth = true
@@ -22,6 +21,7 @@ struct RootContainerView: View {
                 StakesDashboardView()
                     .environmentObject(persistenceManager)
                     .environmentObject(authManager)
+                    .environmentObject(trackingService)
             } else {
                 authFlow
             }
@@ -67,10 +67,11 @@ struct RootContainerView: View {
                 .environmentObject(authManager)
             
         case .authenticated(_):
-            // Show the new stakes dashboard
+            // Show the new stakes dashboard with tracking service
             StakesDashboardView()
                 .environmentObject(persistenceManager)
                 .environmentObject(authManager)
+                .environmentObject(trackingService)
         }
     }
 }
@@ -78,3 +79,4 @@ struct RootContainerView: View {
 #Preview {
     RootContainerView()
 }
+

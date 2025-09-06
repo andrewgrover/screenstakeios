@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0B210C769CB351AF22A7E56F /* FirebaseEmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2095AAD45AC2B6F19466D0 /* FirebaseEmailVerificationView.swift */; };
+		0DFC699C4E0084F0DDE9CC66 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DBA720CACC2662E1C2F2A2 /* ColorExtensions.swift */; };
 		0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */; };
 		2C5CA747A761B65A83D3004A /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B751CD91EEC0368C863B9846 /* DataModels.swift */; };
 		3F1B9B283B3DF62C869B8B17 /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7403AA96367EF97A3A41A /* RootContainerView.swift */; };
@@ -25,26 +26,57 @@
 		9874854C2970E6328806C97F /* ApplePaySetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBFBCFED50C770B7BFB1CFF /* ApplePaySetupView.swift */; };
 		9FCB7AB206E3325C050F3914 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 8396F0FF531CD42E69D1C4A2 /* StripePaymentSheet */; };
 		AAE6CC6CCA2BE2A243DD215B /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784520BE5D8D314034B6633 /* EmailVerificationView.swift */; };
+		AE887046A726F29354C6E243 /* ScreenTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BD9AEF33E36C87A2246AB /* ScreenTimeManager.swift */; };
 		B10AE1A92F0AA606199E48B8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0AE7E9CD32EF1B037062 /* StoreKit.framework */; };
 		BBBD24EAF66EC6924230AC95 /* PaymentMethodSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */; };
+		C196B4F32E6CABF20086998B /* screenstake.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = C196B4E72E6CABF20086998B /* screenstake.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2BD59AE5788C451F5B03E19 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E919E15C134453F1DA56933 /* AuthView.swift */; };
 		CA0D131E2B4EE79B2EB7F196 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 76BF4BAC5A4F4E8AE884ABC0 /* StripeApplePay */; };
 		CB9E84E7F116397D3C956294 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB01C42DC5D12509769EFCB5 /* FirebaseAuthManager.swift */; };
+		CFE0A181E2749C74D277718A /* StakeTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C4DE374636E69DA332B6B /* StakeTrackingService.swift */; };
 		D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03E846A26F32C46F7C7C0F95 /* Assets.xcassets */; };
 		DB87383B1D8BE47B5B598A3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056118BA9AEB85407C17D4DD /* ContentView.swift */; };
+		E21AADAE13A8C60A101E8EE9 /* StakesDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68AF6DCD906BA77C5E6B1F /* StakesDashboardView.swift */; };
 		E89F2B3949E2A58648124FD5 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822399BD23EEF82896CF790 /* PersistenceManager.swift */; };
 		FC787E18B2AE9E0DE03B1574 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E007D5052A41FA1B504A2C /* AuthManager.swift */; };
 		FE375E8F9B43D67D8D541BBF /* PaymentSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CC84F9A1B558454838763 /* PaymentSetupView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C196B4F12E6CABF20086998B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5ABF0ED1E7341AD19E121F5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C196B4E62E6CABF20086998B;
+			remoteInfo = screenstake;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C196B4F42E6CABF20086998B /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				C196B4F32E6CABF20086998B /* screenstake.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		03E846A26F32C46F7C7C0F95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		056118BA9AEB85407C17D4DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		094CBF2285CB298C4432EEA7 /* screenstakeios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = screenstakeios.entitlements; sourceTree = "<group>"; };
 		0B2828408BB503E08BA7F990 /* StakeMonitoringService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeMonitoringService.swift; sourceTree = "<group>"; };
+		184C4DE374636E69DA332B6B /* StakeTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeTrackingService.swift; sourceTree = "<group>"; };
+		1B68AF6DCD906BA77C5E6B1F /* StakesDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakesDashboardView.swift; sourceTree = "<group>"; };
 		220F0AE7E9CD32EF1B037062 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		276CC84F9A1B558454838763 /* PaymentSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSetupView.swift; sourceTree = "<group>"; };
 		2822399BD23EEF82896CF790 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		30DBA720CACC2662E1C2F2A2 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		4784520BE5D8D314034B6633 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		47A0DB5E5F82843C69DFEAB3 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
 		520CAEB0CD204DEF0F2BE506 /* SMSVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSVerificationView.swift; sourceTree = "<group>"; };
@@ -57,15 +89,31 @@
 		AB2095AAD45AC2B6F19466D0 /* FirebaseEmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmailVerificationView.swift; sourceTree = "<group>"; };
 		B2E007D5052A41FA1B504A2C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		B751CD91EEC0368C863B9846 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		C196B4E72E6CABF20086998B /* screenstake.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = screenstake.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B7403AA96367EF97A3A41A /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
 		CD0ADBAE5AB0E14E2CDA4AE3 /* PaymentMethodSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSetupView.swift; sourceTree = "<group>"; };
+		D76BD9AEF33E36C87A2246AB /* ScreenTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeManager.swift; sourceTree = "<group>"; };
 		DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DB01C42DC5D12509769EFCB5 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakeSetupView.swift; sourceTree = "<group>"; };
-		E5297EF2E757C89DE27629BA /* screenstakeios.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = screenstakeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5297EF2E757C89DE27629BA /* screenstakeios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = screenstakeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABA5F1BD4AC980C8D70FBEA /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		FCBA9A5DB2EB6AB81FD741CB /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C196B4F72E6CABF20086998B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C196B4E62E6CABF20086998B /* screenstake */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C196B4E82E6CABF20086998B /* screenstake */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C196B4F72E6CABF20086998B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = screenstake; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7F527388FA1352AC2D6E149E /* Frameworks */ = {
@@ -77,6 +125,13 @@
 				CA0D131E2B4EE79B2EB7F196 /* StripeApplePay in Frameworks */,
 				9525B491CDC9E5D60EDE20B9 /* PassKit.framework in Frameworks */,
 				B10AE1A92F0AA606199E48B8 /* StoreKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C196B4E42E6CABF20086998B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +152,7 @@
 				276CC84F9A1B558454838763 /* PaymentSetupView.swift */,
 				C1B7403AA96367EF97A3A41A /* RootContainerView.swift */,
 				520CAEB0CD204DEF0F2BE506 /* SMSVerificationView.swift */,
+				1B68AF6DCD906BA77C5E6B1F /* StakesDashboardView.swift */,
 				DC426F9223CEBB7AAE422A63 /* StakeSetupView.swift */,
 			);
 			path = Views;
@@ -119,7 +175,9 @@
 				B751CD91EEC0368C863B9846 /* DataModels.swift */,
 				DB01C42DC5D12509769EFCB5 /* FirebaseAuthManager.swift */,
 				2822399BD23EEF82896CF790 /* PersistenceManager.swift */,
+				D76BD9AEF33E36C87A2246AB /* ScreenTimeManager.swift */,
 				0B2828408BB503E08BA7F990 /* StakeMonitoringService.swift */,
+				184C4DE374636E69DA332B6B /* StakeTrackingService.swift */,
 				72E47060D4DDAA6314CF4F6B /* StripePaymentManager.swift */,
 			);
 			path = Models;
@@ -129,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				A8D031C92549E53D79DEB176 /* screenstakeios */,
+				C196B4E82E6CABF20086998B /* screenstake */,
 				3EE78FBDE2A86554A2D323AC /* Frameworks */,
 				DCF7296C503554084661D8E9 /* Products */,
 			);
@@ -139,6 +198,7 @@
 			children = (
 				DA84EED5AC3158B950DF61F6 /* AppCoordinator.swift */,
 				03E846A26F32C46F7C7C0F95 /* Assets.xcassets */,
+				30DBA720CACC2662E1C2F2A2 /* ColorExtensions.swift */,
 				8D9791C3D479DB5CF7F84A42 /* GoogleService-Info.plist */,
 				094CBF2285CB298C4432EEA7 /* screenstakeios.entitlements */,
 				8224D23204C0C67DC09BE21F /* screenstakeiosApp.swift */,
@@ -152,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				E5297EF2E757C89DE27629BA /* screenstakeios.app */,
+				C196B4E72E6CABF20086998B /* screenstake.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,10 +227,12 @@
 				5360C11F5926500E7632ABDA /* Sources */,
 				945373C64FF65C0EE15C468B /* Resources */,
 				7F527388FA1352AC2D6E149E /* Frameworks */,
+				C196B4F42E6CABF20086998B /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C196B4F22E6CABF20086998B /* PBXTargetDependency */,
 			);
 			name = screenstakeios;
 			packageProductDependencies = (
@@ -181,6 +244,28 @@
 			productReference = E5297EF2E757C89DE27629BA /* screenstakeios.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C196B4E62E6CABF20086998B /* screenstake */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C196B4F82E6CABF20086998B /* Build configuration list for PBXNativeTarget "screenstake" */;
+			buildPhases = (
+				C196B4E32E6CABF20086998B /* Sources */,
+				C196B4E42E6CABF20086998B /* Frameworks */,
+				C196B4E52E6CABF20086998B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C196B4E82E6CABF20086998B /* screenstake */,
+			);
+			name = screenstake;
+			packageProductDependencies = (
+			);
+			productName = screenstake;
+			productReference = C196B4E72E6CABF20086998B /* screenstake.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,7 +273,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					245617D46249568F8144975A = {
+						DevelopmentTeam = KAZMRW253H;
+						ProvisioningStyle = Automatic;
+					};
+					C196B4E62E6CABF20086998B = {
+						CreatedOnToolsVersion = 16.4;
+					};
+				};
 			};
 			buildConfigurationList = A97E81E386329B6FC6B09C9E /* Build configuration list for PBXProject "screenstakeios" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -204,11 +299,11 @@
 				148E0ABEE53748352B2C5B73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9669CD36E6AC156BB55087E0 /* XCRemoteSwiftPackageReference "stripe-ios" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				245617D46249568F8144975A /* screenstakeios */,
+				C196B4E62E6CABF20086998B /* screenstake */,
 			);
 		};
 /* End PBXProject section */
@@ -220,6 +315,13 @@
 			files = (
 				D9EEAD51A5FFA73F38FEC95C /* Assets.xcassets in Resources */,
 				44EA07E15AE6BCB22C3DF0B5 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C196B4E52E6CABF20086998B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +338,7 @@
 				FC787E18B2AE9E0DE03B1574 /* AuthManager.swift in Sources */,
 				6F9F0A21ACD70BD44D285AE9 /* AuthModels.swift in Sources */,
 				C2BD59AE5788C451F5B03E19 /* AuthView.swift in Sources */,
+				0DFC699C4E0084F0DDE9CC66 /* ColorExtensions.swift in Sources */,
 				DB87383B1D8BE47B5B598A3C /* ContentView.swift in Sources */,
 				2C5CA747A761B65A83D3004A /* DataModels.swift in Sources */,
 				AAE6CC6CCA2BE2A243DD215B /* EmailVerificationView.swift in Sources */,
@@ -247,14 +350,32 @@
 				E89F2B3949E2A58648124FD5 /* PersistenceManager.swift in Sources */,
 				3F1B9B283B3DF62C869B8B17 /* RootContainerView.swift in Sources */,
 				6B889012C02A5A266161C9CC /* SMSVerificationView.swift in Sources */,
+				AE887046A726F29354C6E243 /* ScreenTimeManager.swift in Sources */,
 				5E09A707FDD16477ACCF96FE /* StakeMonitoringService.swift in Sources */,
 				77A9B4B3ABA18711CB5BACF9 /* StakeSetupView.swift in Sources */,
+				CFE0A181E2749C74D277718A /* StakeTrackingService.swift in Sources */,
+				E21AADAE13A8C60A101E8EE9 /* StakesDashboardView.swift in Sources */,
 				80374117BA0FB94F4EE06661 /* StripePaymentManager.swift in Sources */,
 				0F6EF044845963D1258F14A1 /* screenstakeiosApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C196B4E32E6CABF20086998B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C196B4F22E6CABF20086998B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C196B4E62E6CABF20086998B /* screenstake */;
+			targetProxy = C196B4F12E6CABF20086998B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		666BF34FD0810CB49DBE5F46 /* Release */ = {
@@ -302,14 +423,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-                            SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -318,44 +439,106 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = screenstakeios/screenstakeios.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"screenstakeios/Preview Content\"";
+				DEVELOPMENT_TEAM = KAZMRW253H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleURLTypes = (
-					{
-						CFBundleURLName = com.screenstakeios;
-						CFBundleURLSchemes = (
-							screenstake,
-						);
-					},
-				);
+				INFOPLIST_KEY_CFBundleURLTypes = "[{\"CFBundleURLSchemes\":[\"screenstake\"],\"CFBundleURLName\":\"com.screenstakeios\"}]";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan payment cards for easier entry";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Authenticate payments securely with Face ID";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Track your screen time to help you meet your goals";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UIBackgroundModes = (
-					fetch,
-					processing,
-					"remote-notification",
-				);
+				INFOPLIST_KEY_UIBackgroundModes = "fetch processing remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.screenstakeios.screenstakeios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andyg.screenstake;
 				PRODUCT_NAME = screenstakeios;
 				SDKROOT = iphoneos;
-                            SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C196B4F52E6CABF20086998B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = screenstake/screenstake.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KAZMRW253H;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = screenstake/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = screenstake;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andyg.screenstake.screenstake;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C196B4F62E6CABF20086998B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = screenstake/screenstake.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KAZMRW253H;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = screenstake/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = screenstake;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andyg.screenstake.screenstake;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -410,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -418,7 +601,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-                            SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -427,43 +610,33 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = screenstakeios/screenstakeios.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"screenstakeios/Preview Content\"";
+				DEVELOPMENT_TEAM = KAZMRW253H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleURLTypes = (
-					{
-						CFBundleURLName = com.screenstakeios;
-						CFBundleURLSchemes = (
-							screenstake,
-						);
-					},
-				);
+				INFOPLIST_KEY_CFBundleURLTypes = "[{\"CFBundleURLSchemes\":[\"screenstake\"],\"CFBundleURLName\":\"com.screenstakeios\"}]";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan payment cards for easier entry";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Authenticate payments securely with Face ID";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Track your screen time to help you meet your goals";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UIBackgroundModes = (
-					fetch,
-					processing,
-					"remote-notification",
-				);
+				INFOPLIST_KEY_UIBackgroundModes = "fetch processing remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.screenstakeios.screenstakeios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andyg.screenstake;
 				PRODUCT_NAME = screenstakeios;
 				SDKROOT = iphoneos;
-                            SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -476,6 +649,15 @@
 			buildConfigurations = (
 				C27B5373C946A7E4AE046E35 /* Debug */,
 				666BF34FD0810CB49DBE5F46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C196B4F82E6CABF20086998B /* Build configuration list for PBXNativeTarget "screenstake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C196B4F52E6CABF20086998B /* Debug */,
+				C196B4F62E6CABF20086998B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
